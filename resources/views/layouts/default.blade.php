@@ -22,7 +22,7 @@
     <meta name="twitter:description" content="A website built for tracking and visualizing nCov-19 information in the Philippines." />
     <meta name="twitter:title" content="nCov-19 Tracker - Philippines" />
     <meta name="twitter:site" content="@ridvanbaluyos" />
-    <meta name="twitter:image" content="https://ncov.gumdamserver.com/img/undraw_social_distancing.png" />
+    <meta name="twitter:image" content="https://ncov.gundamserver.com/img/undraw_social_distancing.png" />
 
     <title>nCov-19 Tracker - Philippines - @yield('title', 'Home')</title>
 
