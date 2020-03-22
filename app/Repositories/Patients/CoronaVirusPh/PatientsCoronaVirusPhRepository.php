@@ -106,71 +106,79 @@ class PatientsCoronaVirusPhRepository implements PatientsRepositoryInterface
      */
     private function normalizeHospital($hospital)
     {
-        if (strpos($hospital, 'transferred to ') !== false) {
+        if (stripos($hospital, 'transferred to ') !== false) {
             $hospital = substr($hospital, strpos($hospital, 'transferred to ') + 15);
         }
 
-        if (strpos($hospital, 'Asian Hospital and Medical Center') !== false) {
+        if (stripos($hospital, 'Asian Hospital and Medical Center') !== false) {
             $hospital = 'Asian Hospital and Medical Center';
         }
 
-        if (strpos($hospital, 'Dr. Jose N. Rodriguez Memorial Hospital') !== false) {
+        if (stripos($hospital, 'Dr. Jose N. Rodriguez Memorial Hospital') !== false) {
             $hospital = 'Dr. Jose N. Rodriguez Memorial Hospital';
         }
 
-        if (strpos($hospital, 'Jose B. Lingad Memorial Regional Hospital') !== false) {
+        if (stripos($hospital, 'Jose B. Lingad Memorial Regional Hospital') !== false) {
             $hospital = 'Jose B. Lingad Memorial Regional Hospital';
         }
 
-        if (strpos($hospital, 'Lung Center of the Philippine') !== false) {
+        if (stripos($hospital, 'Lung Center of the Philippine') !== false) {
             $hospital = 'Lung Center of the Philippines';
         }
 
-        if (strpos($hospital, 'Northern Mindanao Medical Center') !== false) {
+        if (stripos($hospital, 'Northern Mindanao Medical Center') !== false) {
             $hospital = 'Northern Mindanao Medical Center';
         }
 
-        if (strpos($hospital, 'Philippine Heart Center') !== false) {
+        if (stripos($hospital, 'Philippine Heart Center') !== false) {
             $hospital = 'Philippine Heart Center';
         }
 
-        if (strpos($hospital, 'Quirino Medical Center') !== false) {
+        if (stripos($hospital, 'Quirino Medical Center') !== false) {
             $hospital = 'Quirino Memorial Medical Center';
         }
 
-        if (strpos($hospital, 'Research Institute for Tropical Medicine') !== false) {
+        if (stripos($hospital, 'Research Institute for Tropical Medicine') !== false) {
             $hospital = 'Research Institute for Tropical Medicine';
         }
 
-        if (strpos($hospital, 'San Lazaro Hospital') !== false) {
+        if (stripos($hospital, 'San Lazaro Hospital') !== false) {
             $hospital = 'San Lazaro Hospital';
         }
 
-        if (strpos($hospital, 'University of the East') !== false) {
+        if (stripos($hospital, 'University of the East') !== false) {
             $hospital = 'University of the East - Ramon Magsaysay Memorial Medical Center';
         }
 
-        if (strpos($hospital, 'the Silliman University Medical Center') !== false) {
+        if (stripos($hospital, 'the Silliman University Medical Center') !== false) {
             $hospital = 'Siliman University Medical Center';
         }
 
-        if (strpos($hospital, 'St. Luke\'s Medical Center–Quezon City') !== false) {
+        if (stripos($hospital, 'St. Luke\'s Medical Center–Quezon City') !== false) {
             $hospital = 'St. Luke\'s Medical Center - Quezon City';
         }
 
-        if (strpos($hospital, 'St. Luke\'s Medical Center–Global City') !== false) {
+        if (stripos($hospital, 'St. Luke\'s Medical Center–Global City') !== false) {
             $hospital = 'St. Luke\'s Medical Center - Bonifcacio Global City';
         }
 
-        if (strpos($hospital, 'Chinese General Hospital') !== false) {
+        if (stripos($hospital, 'Chinese General Hospital') !== false) {
             $hospital = 'Chinese General Hospital and Medical Center';
         }
 
-        if (strpos($hospital, 'RESU-NCR') !== false) {
+        if (stripos($hospital, 'RESU-NCR') !== false) {
             $hospital = 'RESU-NCR (Reporting Facility)';
         }
 
-        if (strpos($hospital, 'University of Sto. Tomas') !== false) {
+        if (stripos($hospital, 'University of Sto. Tomas') !== false) {
+            $hospital = 'University of Santo Tomas Hospital';
+        }
+
+        if (stripos($hospital, 'University of Sto. Tomas') !== false) {
+            $hospital = 'University of Santo Tomas Hospital';
+        }
+
+        if (stripos($hospital, 'University of Sto. Tomas') !== false) {
             $hospital = 'University of Santo Tomas Hospital';
         }
 
