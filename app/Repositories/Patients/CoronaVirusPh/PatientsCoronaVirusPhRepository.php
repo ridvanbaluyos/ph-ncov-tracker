@@ -182,6 +182,10 @@ class PatientsCoronaVirusPhRepository implements PatientsRepositoryInterface
             $hospital = 'University of Santo Tomas Hospital';
         }
 
+        if (stripos($hospital, 'Delos Santos Medical Center') !== false) {
+            $hospital = 'De Los Santos Medical Center';
+        }
+
         return $hospital;
     }
 }
