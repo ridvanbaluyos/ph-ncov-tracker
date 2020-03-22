@@ -25,7 +25,7 @@
             @else
                 <div class="row">
                     <!-- Confirmed Cases -->
-                    <div class="col-xl-3 col-md-6 mb-3">
+                    <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
@@ -48,7 +48,12 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-lg font-weight-bold text-success text-uppercase mb-1">Recovered</div>
-                                        <div class="h1 mb-0 font-weight-bold text-gray-800">{{ $data['stats']['status']['recovered'] }}</div>
+                                        <div class="h1 mb-0 font-weight-bold text-gray-800">
+                                            {{ $data['stats']['status']['recovered'] }}
+                                            <small>
+                                                <h6>({{ round($data['stats']['status']['recovered'] / $data['stats']['status']['confirmed'] , 4) * 100}}% Recovery Rate)</h6>
+                                            </small>
+                                        </div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-user-check fa-2x text-gray-300"></i>
@@ -64,10 +69,15 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-lg font-weight-bold text-danger text-uppercase mb-1">Died</div>
+                                        <div class="text-lg font-weight-bold text-danger text-uppercase mb-1">Died</small></div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
-                                                <div class="h1 mb-0 mr-3 font-weight-bold text-gray-800">{{ $data['stats']['status']['died'] }}</div>
+                                                <div class="h1 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                    {{ $data['stats']['status']['died'] }}
+                                                    <small>
+                                                        <h6>({{ round($data['stats']['status']['died'] / $data['stats']['status']['confirmed'] , 4) * 100}}% Mortaility Rate)</h6>
+                                                    </small>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

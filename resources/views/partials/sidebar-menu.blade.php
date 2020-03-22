@@ -3,7 +3,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-biohazard"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">nCov <sup>19</sup> Tracker PH</div>
+        <div class="sidebar-brand-text mx-3">COVID<sup>19</sup> Tracker PH</div>
     </a>
 
     <hr class="sidebar-divider">
