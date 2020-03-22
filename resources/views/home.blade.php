@@ -123,7 +123,7 @@
                                       <i class="fas fa-circle text-danger"></i> Died
                                     </span>
                                     <span class="mr-2">
-                                      <i class="fas fa-circle text-danger" style="color: #dfdfdf;"></i> TBA
+                                      <i class="fas fa-circle" style="color: #dfdfdf;"></i> TBA
                                     </span>
                                 </div>
                             </div>
