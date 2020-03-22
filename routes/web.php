@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::match(['get'], '/', 'HomeController@getIndex');
+
+Route::match(['get'], '/patient-database', 'HomeController@getPatients');
+
+Route::view('/global-stats', 'global-stats');
+
+Route::view('/data-sources', 'data-sources');
+
+Route::view('/credits', 'credits');
+
+Route::view('/about', 'about');
