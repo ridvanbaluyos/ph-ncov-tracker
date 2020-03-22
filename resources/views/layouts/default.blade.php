@@ -10,11 +10,11 @@
 
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="@yield('title', 'nCov-19 Tracker - Philippines')" />
-    <meta property="og:description" content="A website built for tracking and visualizing nCov-19 information in the Philippines.')" />
-    <meta property="og:url" content="@yield('og-url', 'https://ncov.gundamserver.com/')" />
+    <meta property="og:title" content="nCov-19 Tracker - Philippines" />
+    <meta property="og:description" content="A website built for tracking and visualizing nCov-19 information in the Philippines." />
+    <meta property="og:url" content="https://ncov.gundamserver.com" />
     <meta property="og:site_name" content="nCov-19 Tracker - Philippines" />
-    <meta property="og:image" content="@yield('og-image', 'https://ncov.gundamserver.com/img/undraw_social_distancing.png')" />
+    <meta property="og:image" content="https://ncov.gundamserver.com/img/undraw_social_distancing.png" />
     <meta property="og:image:width" content="1149" />
     <meta property="og:image:height" content="938" />
 
