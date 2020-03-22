@@ -141,7 +141,7 @@
                                 <div class="chart-pie pt-4 pb-2">
                                     <span id="bySexMaleValue" style="display: none;">{{ $data['stats']['sexes']['M'] }}</span>
                                     <span id="bySexFemaleValue" style="display: none;">{{ $data['stats']['sexes']['F'] }}</span>
-                                    <span id="bySexTbaValue" style="display: none;">{{ $data['stats']['sexes']['TBA'] }}</span>
+                                    <span id="bySexTbaValue" style="display: none;">{{ isset($data['stats']['sexes']['TBA']) ?? 0 }}</span>
                                     <canvas id="bySexChart"></canvas>
                                 </div>
                                 <div class="mt-4 text-center small">
@@ -172,7 +172,7 @@
                                     <span id="byAge2Value" style="display: none;">{{ $data['stats']['ages']['31-45'] }}</span>
                                     <span id="byAge3Value" style="display: none;">{{ $data['stats']['ages']['46-60'] }}</span>
                                     <span id="byAge4Value" style="display: none;">{{ $data['stats']['ages']['61~'] }}</span>
-                                    <span id="byAgeTbaValue" style="display: none;">{{ $data['stats']['ages']['tba'] }}</span>
+                                    <span id="byAgeTbaValue" style="display: none;">{{ isset($data['stats']['ages']['tba']) ?? 0 }}</span>
                                     <canvas id="byAgeChart"></canvas>
                                 </div>
                             </div>
