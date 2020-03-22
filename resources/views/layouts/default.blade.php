@@ -8,13 +8,21 @@
     <meta name="author" content="Ridvan Baluyos">
     <meta name="keywords" content="covid, covid19, covid-19, ncov, ncov19, ncov-19, covid philippines, ncov philippines, corona virus, coronavirus philippines" />
 
-    <meta property="og:locale" content="en_US"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content="@yield('title', 'nCov-19 Tracker - Philippines')"/>
-    <meta property="og:description" content="A website built for tracking and visualizing nCov-19 information in the Philippines.')"/>
-    <meta property="og:url" content="@yield('og-url', 'https://ncov.gumdamserver.com')"/>
-    <meta property="og:site_name" content="nCov-19 Tracker - Philippines"/>
-    <meta property="og:image" content="@yield('og-image', 'https://ncov.gumdamserver.com/img/undraw_social_distancing.png')"/>
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@yield('title', 'nCov-19 Tracker - Philippines')" />
+    <meta property="og:description" content="A website built for tracking and visualizing nCov-19 information in the Philippines.')" />
+    <meta property="og:url" content="@yield('og-url', 'https://ncov.gumdamserver.com/')" />
+    <meta property="og:site_name" content="nCov-19 Tracker - Philippines" />
+    <meta property="og:image" content="@yield('og-image', 'https://ncov.gumdamserver.com/img/undraw_social_distancing.png')" />
+    <meta property="og:image:width" content="1149" />
+    <meta property="og:image:height" content="938" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="A website built for tracking and visualizing nCov-19 information in the Philippines." />
+    <meta name="twitter:title" content="nCov-19 Tracker - Philippines" />
+    <meta name="twitter:site" content="@ridvanbaluyos" />
+    <meta name="twitter:image" content="https://ncov.gumdamserver.com/img/undraw_social_distancing.png" />
 
     <title>nCov-19 Tracker - Philippines - @yield('title', 'Home')</title>
 
