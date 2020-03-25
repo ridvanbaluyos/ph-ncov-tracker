@@ -75,7 +75,7 @@
                                                 <div class="h1 mb-0 mr-3 font-weight-bold text-gray-800">
                                                     {{ $data['stats']['status']['died'] }}
                                                     <small>
-                                                        <h6>({{ round($data['stats']['status']['died'] / $data['stats']['status']['confirmed'] , 4) * 100}}% Mortaility Rate)</h6>
+                                                        <h6>({{ round($data['stats']['status']['died'] / $data['stats']['status']['confirmed'] , 4) * 100}}% Mortality Rate)</h6>
                                                     </small>
                                                 </div>
                                             </div>

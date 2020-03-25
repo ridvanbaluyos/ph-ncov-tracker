@@ -34,14 +34,13 @@ let byStatusChart = new Chart(byStatus, {
         legend: {
             display: false
         },
-        cutoutPercentage: 80,
     },
 });
 
 // By Sex Chart
 let bySex = document.getElementById('bySexChart');
 let bySexChart = new Chart(bySex, {
-    type: 'doughnut',
+    type: 'pie',
     data: {
         labels: ['Male', 'Female', 'TBA'],
         datasets: [{
@@ -69,7 +68,6 @@ let bySexChart = new Chart(bySex, {
         legend: {
             display: false
         },
-        cutoutPercentage: 80,
     },
 });
 

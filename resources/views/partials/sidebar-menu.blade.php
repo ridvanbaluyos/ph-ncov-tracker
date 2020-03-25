@@ -52,9 +52,11 @@
         </a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" title="Realtime application protection" href="https://www.sqreen.com/?utm_source=badge" target="_blank">
-            <img style="width:109px;height:36px" src="https://s3-eu-west-1.amazonaws.com/sqreen-assets/badges/20171107/sqreen-light-badge.svg" alt="Sqreen | Runtime Application Protection" />
-        </a>
-    </li>
+    <div class="d-none d-md-block">
+        <li class="nav-item">
+            <a class="nav-link" title="Realtime application protection" href="https://www.sqreen.com/?utm_source=badge" target="_blank">
+                <img style="width:109px;height:36px" src="https://s3-eu-west-1.amazonaws.com/sqreen-assets/badges/20171107/sqreen-light-badge.svg" alt="Sqreen | Runtime Application Protection" />
+            </a>
+        </li>
+    </div>
 </ul>
