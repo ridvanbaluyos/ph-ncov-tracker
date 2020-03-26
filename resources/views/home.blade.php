@@ -100,7 +100,7 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">Admitted</div>
+                                        <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">Active</div>
                                         <div class="h1 mb-0 font-weight-bold text-gray-800">{{ $data['stats']['status']['admitted'] }}</div>
                                     </div>
                                     <div class="col-auto">
@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="mt-4 text-center small">
                                     <span class="mr-2">
-                                      <i class="fas fa-circle text-warning"></i> Admitted
+                                      <i class="fas fa-circle text-warning"></i> Active
                                     </span>
                                     <span class="mr-2">
                                       <i class="fas fa-circle text-success"></i> Recovered

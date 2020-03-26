@@ -7,7 +7,7 @@ let byStatus = document.getElementById('byStatusChart');
 let byStatusChart = new Chart(byStatus, {
     type: 'pie',
     data: {
-        labels: ['Admitted', 'Recovered', 'Died', 'TBA'],
+        labels: ['Active', 'Recovered', 'Died', 'TBA'],
         datasets: [{
             data: [
                 $('#byStatusAdmittedValue')[0].innerHTML,
