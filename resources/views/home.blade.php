@@ -107,13 +107,12 @@
                     </div>
                 </div>
                 <div class="row">
+                    <!-- By Status -->
                     <div class="col-xl-4 col-md-6 mb-4">
                         <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold text-primary">By Status</h6>
                             </div>
-                            <!-- Card Body -->
                             <div class="card-body">
                                 <div class="chart-pie pt-4 pb-2">
                                     <span id="byStatusRecoveredValue" style="display: none;">{{ $data['stats']['status']['recovered'] }}</span>
@@ -140,9 +139,9 @@
                         </div>
                     </div>
 
+                    <!-- By Sex -->
                     <div class="col-xl-4 col-md-6 mb-4">
                         <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold text-primary">By Sex</h6>
                             </div>
@@ -151,7 +150,7 @@
                                 <div class="chart-pie pt-4 pb-2">
                                     <span id="bySexMaleValue" style="display: none;">{{ $data['stats']['sexes']['M'] }}</span>
                                     <span id="bySexFemaleValue" style="display: none;">{{ $data['stats']['sexes']['F'] }}</span>
-                                    <span id="bySexTbaValue" style="display: none;">{{ isset($data['stats']['sexes']['TBA']) ?? 0 }}</span>
+                                    <span id="bySexTbaValue" style="display: none;">{{ isset($data['stats']['sexes']['TBA']) ? $data['stats']['sexes']['TBA'] : 0 }}</span>
                                     <canvas id="bySexChart"></canvas>
                                 </div>
                                 <div class="mt-4 text-center small">
@@ -169,7 +168,7 @@
                         </div>
                     </div>
 
-
+                    <!-- By Age -->
                     <div class="col-xl-4 col-md-6 mb-4">
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
@@ -182,8 +181,41 @@
                                     <span id="byAge2Value" style="display: none;">{{ $data['stats']['ages']['31-45'] }}</span>
                                     <span id="byAge3Value" style="display: none;">{{ $data['stats']['ages']['46-60'] }}</span>
                                     <span id="byAge4Value" style="display: none;">{{ $data['stats']['ages']['61~'] }}</span>
-                                    <span id="byAgeTbaValue" style="display: none;">{{ isset($data['stats']['ages']['tba']) ?? 0 }}</span>
-                                    <canvas id="byAgeChart"></canvas>
+                                    <span id="byAgeTbaValue" style="display: none;">{{ isset($data['stats']['ages']['tba']) ? $data['stats']['ages']['tba'] : 0 }}</span>
+                                    <canvas id="by_age_graph"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Daily Cumulative -->
+                    <div class="col-xl-6 col-md-6 mb-6">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Daily Count (Cumulative) of Confirmed Cases</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-bar">
+                                    <canvas id="daily_count_cumulative"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Deaths and Recoveries -->
+                    <div class="col-xl-6 col-md-6 mb-6">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Daily Count (Cumulative) of Deaths and Recoveries</h6>
+                            </div>
+                            <div class="card-body">
+{{--                                <div class="chart-bar">--}}
+{{--                                    <canvas id="daily_count_deaths_recoveries"></canvas>--}}
+{{--                                </div>--}}
+                                <div class="text-center">
+                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_under_construction.png" alt="" />
+                                    <h4>This information is still under development.</h4>
                                 </div>
                             </div>
                         </div>
@@ -196,8 +228,8 @@
                                 Compare data with:
                                 <div class="text-white-50 small">
                                     <ul>
-                                        <li><a href="https://ncovtracker.doh.gov.ph" target="_blank"style="text-decoration: none; color: black;">https://ncovtracker.doh.gov.ph</a></li>
-                                        <li><a href="https://covid19.mathdro.id/api/countries/PH/og" target="_blank"style="text-decoration: none; color: black;">https://covid19.mathdro.id/api/countries/PH/og</a></li>
+                                        <li><a href="https://ncovtracker.doh.gov.ph" target="_blank"style="text-decoration: none; color: black;">Department of Health, Philippines</a></li>
+                                        <li><a href="https://coronavirus.jhu.edu/map.html" target="_blank"style="text-decoration: none; color: black;">John Hopkins University & Medicine</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -209,8 +241,8 @@
                                 Data Source:
                                 <div class="text-white-50 small">
                                     <ul>
-                                        <li><a href="https://coronavirus-ph-api.now.sh" target="_blank"style="text-decoration: none; color: black;">https://coronavirus-ph-api.now.sh</a></li>
-                                        <li><a href="https://www.reddit.com/r/Coronavirus_PH/comments/fehzke/ph_covid19_case_database_is_now_live" target="_blank"style="text-decoration: none; color: black;">https://www.reddit.com/r/Coronavirus_PH/comments/fehzke/ph_covid19_case_database_is_now_live/</a></li>
+                                        <li><a href="https://coronavirus-ph-api.now.sh" target="_blank"style="text-decoration: none; color: black;">coronavirus-ph (API)</a></li>
+                                        <li><a href="https://www.reddit.com/r/Coronavirus_PH/comments/fehzke/ph_covid19_case_database_is_now_live" target="_blank"style="text-decoration: none; color: black;">https://www.reddit.com/r/Coronavirus_PH</a></li>
                                     </ul>
 
                                 </div>
@@ -218,6 +250,7 @@
                         </div>
                     </div>
                 </div>
+
             @endif
         </div>
         @include('partials.footer')
@@ -228,4 +261,128 @@
 @section('js-page-specific')
     <script src="/vendor/chart.js/Chart.min.js"></script>
     <script src="/js/charts.js"></script>
+    <script type="text/javascript">
+        let byAgeGender = document.getElementById('by_age_graph').getContext('2d');
+        let byAgeGenderGraph = new Chart(byAgeGender, {
+          type: 'bar',
+          data: {
+            labels: {!!   $data['charts']['chartAgeGender']['labels'] !!},
+            datasets: [{
+              type: 'bar',
+              label: 'Male',
+              backgroundColor: '#007DD9',
+              data: {!!   $data['charts']['chartAgeGender']['maleData'] !!},
+            }, {
+              type: 'bar',
+              label: 'Female',
+              backgroundColor: '#F964A3',
+              data: {!!   $data['charts']['chartAgeGender']['femaleData'] !!},
+            }, {
+              type: 'bar',
+              label: 'TBA',
+              backgroundColor: '#DFDFDF',
+              data: {!!   $data['charts']['chartAgeGender']['tbaData'] !!},
+            }]
+          },
+          options: {
+            maintainAspectRatio: false,
+            layout: {
+              padding: {
+                left: 10,
+                right: 25,
+                top: 25,
+                bottom: 0
+              }
+            },
+            scales: {
+              xAxes: [{
+                stacked: true,
+                gridLines: {
+                  display: false,
+                  drawBorder: false
+                },
+                ticks: {
+                  maxTicksLimit: 6
+                },
+              }],
+              yAxes: [{
+                stacked: true,
+                ticks: {
+                  min: 0,
+                  max: 300,
+                  maxTicksLimit: 15,
+                  padding: 10,
+                },
+                gridLines: {
+                  color: 'rgb(234, 236, 244)',
+                  zeroLineColor: 'rgb(234, 236, 244)',
+                  drawBorder: false,
+                  borderDash: [2],
+                  zeroLineBorderDash: [2]
+                }
+              }]
+            }
+          }
+        });
+
+        let dailyCountCumulative = document.getElementById('daily_count_cumulative').getContext('2d');
+        let dailyCountCumulativeChart = new Chart(dailyCountCumulative, {
+          type: 'bar',
+          data: {
+            labels: {!!   $data['charts']['chartCasesDates']['labels'] !!},
+            datasets: [{
+              type: 'line',
+              label: 'Cumulative',
+              data: {!!   $data['charts']['chartCasesDates']['cumulative'] !!},
+              borderColor: 'black',
+            }, {
+              type: 'bar',
+              label: 'Confirmed Cases',
+              backgroundColor: '#f964a3',
+              data: {!!   $data['charts']['chartCasesDates']['dates'] !!},
+            }]
+          },
+          options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            layout: {
+              padding: {
+                left: 10,
+                right: 25,
+                top: 25,
+                bottom: 0
+              }
+            },
+            scales: {
+              xAxes: [{
+                stacked: true,
+                gridLines: {
+                  display: false,
+                  drawBorder: false
+                },
+                ticks: {
+                  maxTicksLimit: 6
+                },
+              }],
+              yAxes: [{
+                stacked: true,
+                ticks: {
+                  min: 0,
+                  max: 900,
+                  maxTicksLimit: 15,
+                  padding: 10,
+                },
+                gridLines: {
+                  color: 'rgb(234, 236, 244)',
+                  zeroLineColor: 'rgb(234, 236, 244)',
+                  drawBorder: false,
+                  borderDash: [2],
+                  zeroLineBorderDash: [2]
+                }
+              }]
+            }
+          }
+        });
+    </script>
+
 @endsection

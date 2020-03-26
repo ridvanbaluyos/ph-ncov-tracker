@@ -40,6 +40,7 @@ class StatsCoronaStatsRepository implements StatsRepositoryInterface
             $result = curl_exec($ch);
             $cases = json_decode($result, true);
             $stats = $this->normalizeData($cases);
+            $stats['ages_sexes'] = $this->getAgeBySexData($cases);
 
             return $stats;
         } catch (\Exception $e) {
@@ -62,6 +63,7 @@ class StatsCoronaStatsRepository implements StatsRepositoryInterface
      */
     private function normalizeData($cases)
     {
+        // TODO: Optimize and simplify.
         $stats['ages'] = [
             '~17' => 0,
             '18-30' => 0,
@@ -125,9 +127,7 @@ class StatsCoronaStatsRepository implements StatsRepositoryInterface
                 ++$stats['ages']['tba'];
             } elseif ($age < 17) {
                 ++$stats['ages']['~17'];
-            } elseif ($age >= 17 && $age <= 20) {
-                ++$stats['ages']['18-30'];
-            } elseif ($age >= 18 && $age <= 30) {
+            } elseif ($age >= 17 && $age <= 30) {
                 ++$stats['ages']['18-30'];
             } elseif ($age >= 31 && $age <= 45) {
                 ++$stats['ages']['31-45'];
@@ -138,6 +138,46 @@ class StatsCoronaStatsRepository implements StatsRepositoryInterface
             }
         }
 
-       return $stats;
+        return $stats;
+    }
+
+    public function getAgeBySexData($cases)
+    {
+        $sexes = [
+            'M' => [],
+            'F' => [],
+            'TBA' => []
+        ];
+        $ageBrackets = [
+            '0-17' => $sexes,
+            '18-30' => $sexes,
+            '31-45' => $sexes,
+            '45-60' => $sexes,
+            '61-100' => $sexes,
+            'TBA' => $sexes
+        ];
+        $data = $ageBrackets;
+
+        foreach ($cases as $case) {
+            $age = $case['age'];
+            $sex = $case['gender'];
+
+            foreach ($ageBrackets as $ageBracket => $v) {
+                // TBA
+                if ($ageBracket === 'TBA') {
+                    if ($age === 'TBA') {
+                        $data[$ageBracket][$sex][] = $case['case_no'];
+                    }
+                } else {
+                    list($startAge, $endAge) = explode('-', $ageBracket);
+
+                    if ($age >= $startAge && $age <= $endAge) {
+                        $data[$ageBracket][$sex][] = $case['case_no'];
+                    }
+                }
+            }
+        }
+
+        return $data;
     }
 }

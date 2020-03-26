@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Helpers\Charts\ChartHelper;
 
 use http\Client\Response;
 use Illuminate\Http\Request;
@@ -23,7 +24,12 @@ class HomeController extends Controller
         $coronaStats = new StatsRepository();
         $stats = $coronaStats->getStats();
 
+        $chartAgeGender = ChartHelper::formatStackedBarChartByAgesSexes($stats['ages_sexes']);
+        $chartCasesDates = ChartHelper::formatLineBarChartCasesByDates($stats['dates']);
+
         $data['stats'] = $stats;
+        $data['charts']['chartAgeGender'] = $chartAgeGender;
+        $data['charts']['chartCasesDates'] = $chartCasesDates;
 
         return response()->view('home', ['data' => $data]);
     }
