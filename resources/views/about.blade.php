@@ -16,7 +16,7 @@
                                     <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_welcome_cats.png" alt="">
                                 </div>
                                 <div class="text-left">
-                                    <p>The nCov<sup>19</sup> Tracker PH is a side-project by <a href="https://ridvanbaluyos.com" target="_blank">Ridvan Baluyos</a>.</p>
+                                    <p>The COVID<sup>19</sup> Tracker PH is a side-project by <a href="https://ridvanbaluyos.com" target="_blank">Ridvan Baluyos</a>.</p>
                                     <p>
                                         So what makes this one unique from other trackers? Nothing really. I use the same data
                                         source as everyone else. If you think this website can help you visualize the situation,

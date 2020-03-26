@@ -16,7 +16,7 @@
                                     <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_data_sources.png" alt="Data Sources">
                                 </div>
                                 <div class="text-left">
-                                    <p>The nCov<sup>19</sup> Tracker PH uses several APIs for fetching information.</p>
+                                    <p>The COVID<sup>19</sup> Tracker PH uses several APIs for fetching information.</p>
                                     <p>
                                         The data extracted from these sources are believed to be reliable, no warranty, expressed or implied,
                                         is made regarding accuracy, adequacy, completeness, legality, reliability or usefulness of
