@@ -32,6 +32,11 @@
                                     <div class="col mr-2">
                                         <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">Confirmed</div>
                                         <div class="h1 mb-0 font-weight-bold text-gray-800">{{ $data['stats']['status']['confirmed'] }}</div>
+                                        <small>
+                                            <h6>
+                                                (+{{ $data['stats']['dates'][date('Y-m-d', strtotime('- 1 day'))] }} cases)
+                                            </h6>
+                                        </small>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-users fa-2x text-gray-300"></i>
