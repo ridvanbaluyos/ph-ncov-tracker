@@ -30,7 +30,7 @@ class Stats implements StatsRepositoryInterface
      *
      * @return mixed|null
      */
-    public function getStats()
+    public function request()
     {
         try {
             $ch = curl_init();
@@ -49,6 +49,10 @@ class Stats implements StatsRepositoryInterface
         }
     }
 
+    public function getStats()
+    {
+        return $this->request();
+    }
 
     /**
      * Unavailable for this repository.
@@ -59,6 +63,27 @@ class Stats implements StatsRepositoryInterface
     public function getStatsByCountry($countryCode)
     {
         return [];
+    }
+
+
+    /**
+     * Unavailable for this repository.
+     *
+     * @return array
+     */
+    public function getGlobalStats()
+    {
+        return [];
+    }
+
+    /**
+     * Unavailable for this repository.
+     *
+     * @param string $status
+     * @param int $limit
+     */
+    public function getTopCountriesByStatus(string $status, int $limit)
+    {
     }
 
     /**

@@ -10,6 +10,7 @@ use App\Repositories\Stats\CoronaVirusPh\Stats as CoronaVirusPhStats;
  */
 class StatsRepository implements StatsRepositoryInterface
 {
+    /* The Stats Repository to be used. */
     private $statsRepository;
 
     public function __construct(StatsRepositoryInterface $statsRepository = null)
@@ -21,9 +22,6 @@ class StatsRepository implements StatsRepositoryInterface
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getStats()
     {
         return $this->statsRepository->getStats();
@@ -32,5 +30,15 @@ class StatsRepository implements StatsRepositoryInterface
     public function getStatsByCountry($countryCode = null)
     {
         return $this->statsRepository->getStatsByCountry($countryCode);
+    }
+
+    public function getTopCountriesByStatus(string $status, int $limit = 5)
+    {
+        return $this->statsRepository->getTopCountriesByStatus($status, $limit);
+    }
+
+    public function getGlobalStats()
+    {
+        return $this->statsRepository->getGlobalStats();
     }
 }

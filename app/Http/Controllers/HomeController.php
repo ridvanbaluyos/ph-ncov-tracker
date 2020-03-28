@@ -55,9 +55,18 @@ class HomeController extends Controller
     {
         $mathdroid = new MathdroidStats();
         $coronaStats = new StatsRepository($mathdroid);
-        $statsGlobal = $coronaStats->getStats();
+        $statsGlobal = $coronaStats->getGlobalStats();
+        $statsTopCountriesByCases = $coronaStats->getTopCountriesByStatus('confirmed');
+        $statsTopCountriesByDeaths = $coronaStats->getTopCountriesByStatus('deaths');
+        $statsTopCountriesByRecovery = $coronaStats->getTopCountriesByStatus('recovered');
+
         $stats = [
             'global' => $statsGlobal,
+            'top_countries' => [
+                'confirmed' => $statsTopCountriesByCases,
+                'deaths' => $statsTopCountriesByDeaths,
+                'recoveries' => $statsTopCountriesByRecovery,
+            ],
             'countries' => []
         ];
 //        $statsByCountry = $coronaStats->getStatsByCountry();

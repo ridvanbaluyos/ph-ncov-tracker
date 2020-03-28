@@ -10,30 +10,26 @@ use App\Repositories\Stats\StatsRepositoryInterface;
 class Stats implements StatsRepositoryInterface
 {
     /* API Base URL endpoint */
-    private $url;
+    private $baseUrl;
 
-    /* Country Code */
-    private $countryCode = null;
+    /* API Endpoint */
+    private $endpoint;
 
     /**
      * MathdroidStatsRepository constructor.
      */
     public function __construct()
     {
-        $this->url = 'https://covid19.mathdro.id/api';
+        $this->baseUrl = 'https://covid19.mathdro.id/api';
     }
 
     /**
      * @return mixed
      */
-    public function getStats()
+    public function request()
     {
-        if ($this->countryCode !== null) {
-            $this->url = $this->url . '/countries/' . $this->countryCode;
-        }
-
         $ch = curl_init();
-        curl_setopt($ch,CURLOPT_URL, $this->url);
+        curl_setopt($ch,CURLOPT_URL, $this->endpoint);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 240);
         $result = curl_exec($ch);
@@ -42,18 +38,34 @@ class Stats implements StatsRepositoryInterface
         return $stats;
     }
 
-    public function getStatsByCountry($countryCode = null)
+    public function getStats()
     {
-        $this->countryCode = $countryCode;
-        return $this->getStats();
+        // TODO: Implement getStats() method.
     }
 
-    /**
-     * @param $stats
-     * @return mixed
-     */
-    private function getTotalActive($stats)
+    public function getGlobalStats()
     {
-        return $stats['confirmed']['value'] - $stats['deaths']['value'] - $stats['recovered']['value'];
+        $this->endpoint = $this->baseUrl;
+        return $this->request();
+    }
+
+    public function getStatsByCountry($countryCode = null)
+    {
+        $this->endpoint =  $this->baseUrl . '/countries/' . $countryCode;
+        return $this->request();
+    }
+
+    public function getTopCountriesByStatus($status, $limit = 5)
+    {
+        $this->endpoint = $this->baseUrl . '/' . $status;
+        $stats = $this->request();
+
+        if (is_null($stats)) {
+            echo $this->endpoint;
+            dd($status);
+        }
+        $stats = array_slice($stats, 0, $limit);
+
+        return $stats;
     }
 }

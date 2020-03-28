@@ -56,7 +56,7 @@
                                             <div class="h1 mb-0 font-weight-bold text-gray-800">
                                                 {{ number_format($data['stats']['global']['recovered']['value'], 0, '.', ',') }}
                                                 <small>
-                                                    <h6></h6>
+                                                    <h6>({{ round($data['stats']['global']['recovered']['value'] / $data['stats']['global']['confirmed']['value'] , 4) * 100}}% Recovery Rate)</h6>
                                                 </small>
                                             </div>
                                         </div>
@@ -80,7 +80,7 @@
                                                     <div class="h1 mb-0 mr-3 font-weight-bold text-gray-800">
                                                         {{ number_format($data['stats']['global']['deaths']['value'], 0, '.', ',') }}
                                                         <small>
-                                                            <h6></h6>
+                                                            <h6>({{ round($data['stats']['global']['deaths']['value'] / $data['stats']['global']['confirmed']['value'] , 4) * 100}}% Mortality Rate)</h6>
                                                         </small>
                                                     </div>
                                                 </div>
@@ -121,6 +121,96 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-lg-3 mb-3">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Countries</h6>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-sm table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Country/Region</th>
+                                            <th scope="col">Count</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($data['stats']['top_countries']['confirmed'] as $country)
+                                            <tr>
+                                                <th>{{ $loop->iteration }}</th>
+                                                <td>{{ $country['combinedKey'] }}</td>
+                                                <td>
+                                                    {{ number_format($country['confirmed'], 0, '.', ',') }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mb-3">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Countries</h6>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-sm table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Country/Region</th>
+                                            <th scope="col">Count</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($data['stats']['top_countries']['recoveries'] as $country)
+                                            <tr>
+                                                <th>{{ $loop->iteration }}</th>
+                                                <td>{{ $country['combinedKey'] }}</td>
+                                                <td>
+                                                    {{ number_format($country['recovered'], 0, '.', ',') }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mb-3">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Countries</h6>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-sm table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Country/Region</th>
+                                            <th scope="col">Count</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($data['stats']['top_countries']['deaths'] as $country)
+                                            <tr>
+                                                <th>{{ $loop->iteration }}</th>
+                                                <td>{{ $country['combinedKey'] }}</td>
+                                                <td>
+                                                    {{ number_format($country['deaths'], 0, '.', ',') }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-lg-6 mb-4">
                             <div class="card bg-secondary text-white shadow">
                                 <div class="card-body">
@@ -147,6 +237,8 @@
                             </div>
                         </div>
                     </div>
+
+
                 @endif
                 @include('partials.footer')
             </div>
