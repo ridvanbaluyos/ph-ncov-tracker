@@ -26,16 +26,16 @@
                                     For patients database and PH statistics:
                                     <ul>
                                         <li>
-                                            <a href="https://coronavirus-ph-api.now.sh" target="_blank">https://coronavirus-ph-api.now.sh</a>
+                                            <a href="https://coronavirus-ph-api.now.sh" target="_blank">coronavirus-ph (API)</a>
                                         </li>
                                         <li>
-                                            <a href="https://www.reddit.com/r/Coronavirus_PH/comments/fehzke/ph_covid19_case_database_is_now_live/" target="_blank">https://www.reddit.com/r/Coronavirus_PH/comments/fehzke/ph_covid19_case_database_is_now_live/</a>
+                                            <a href="https://www.reddit.com/r/Coronavirus_PH/comments/fehzke/ph_covid19_case_database_is_now_live/" target="_blank">https://www.reddit.com/r/Coronavirus_PH</a>
                                         </li>
                                     </ul>
                                     For global statistics:
                                     <ul>
                                         <li>
-                                            <a href="https://github.com/mathdroid/covid-19-api" target="_blank">https://github.com/mathdroid/covid-19-api</a>
+                                            <a href="https://github.com/mathdroid/covid-19-api" target="_blank">Serving data from John Hopkins University CSSE as a JSON API</a>
                                         </li>
                                     </ul>
                                 </div>

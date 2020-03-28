@@ -5,21 +5,149 @@
         <div id="content">
             @include('partials.sidebar-toggle')
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-6 offset-lg-3 mb-4">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">This page is still under development</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_under_construction.png" alt="">
+                @if (empty($data['stats']['global']))
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-3 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Server Unavailable</h6>
                                 </div>
-                                <a href="/">&larr; Back to Home</a>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_server_down.png" alt="">
+                                    </div>
+                                    <p>There seems to be some problem with the data source. </p>
+                                    <p>Please visit the <a href="https://ncovtracker.doh.gov.ph/">Department of Health</a> website.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <div class="row">
+                        <!-- Confirmed Cases -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">Confirmed</div>
+                                            <div class="h1 mb-0 font-weight-bold text-gray-800">
+                                                {{ number_format($data['stats']['global']['confirmed']['value'], 0, '.', ',') }}
+                                            </div>
+                                            <small>
+                                                <h6></h6>
+                                            </small>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recovered -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-lg font-weight-bold text-success text-uppercase mb-1">Recovered</div>
+                                            <div class="h1 mb-0 font-weight-bold text-gray-800">
+                                                {{ number_format($data['stats']['global']['recovered']['value'], 0, '.', ',') }}
+                                                <small>
+                                                    <h6></h6>
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Deaths -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-danger shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-lg font-weight-bold text-danger text-uppercase mb-1">Died</small></div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h1 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                        {{ number_format($data['stats']['global']['deaths']['value'], 0, '.', ',') }}
+                                                        <small>
+                                                            <h6></h6>
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user-minus fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">Active</div>
+                                            <div class="h1 mb-0 font-weight-bold text-gray-800">
+                                                {{ number_format(
+                                                    ($data['stats']['global']['confirmed']['value'] - ($data['stats']['global']['recovered']['value'] + $data['stats']['global']['deaths']['value'])),
+                                                    0,
+                                                    '.',
+                                                    ','
+                                                    )
+                                                }}
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user-clock fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 mb-4">
+                            <div class="card bg-secondary text-white shadow">
+                                <div class="card-body">
+                                    Last Updated:
+                                    <div class="text-white-50 small">
+                                        <ul>
+                                            <li>{{ $data['stats']['global']['lastUpdate'] }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <div class="card bg-secondary text-white shadow">
+                                <div class="card-body">
+                                    Data Source:
+                                    <div class="text-white-50 small">
+                                        <ul>
+                                            <li><a href="https://covid19.mathdro.id/api" target="_blank"style="text-decoration: none; color: black;">Serving data from John Hopkins University CSSE as a JSON API</a></li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 @include('partials.footer')
             </div>
         </div>

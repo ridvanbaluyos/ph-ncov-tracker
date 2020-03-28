@@ -1,23 +1,26 @@
 <?php
-namespace App\Http\Repositories\Mathdroid;
+namespace App\Repositories\Stats\Mathdroid;
 
-use App\Repositories\StatsRepositoryInterface;
+use App\Repositories\Stats\StatsRepositoryInterface;
 
 /**
  * Class MathdroidStatsRepository
  * @package App\Http\Repositories\Mathdroid
  */
-class MathdroidStatsRepository implements StatsRepositoryInterface
+class Stats implements StatsRepositoryInterface
 {
     /* API Base URL endpoint */
     private $url;
+
+    /* Country Code */
+    private $countryCode = null;
 
     /**
      * MathdroidStatsRepository constructor.
      */
     public function __construct()
     {
-        $this->url = 'https://covid19.mathdro.id/api/countries/PH';
+        $this->url = 'https://covid19.mathdro.id/api';
     }
 
     /**
@@ -25,15 +28,24 @@ class MathdroidStatsRepository implements StatsRepositoryInterface
      */
     public function getStats()
     {
+        if ($this->countryCode !== null) {
+            $this->url = $this->url . '/countries/' . $this->countryCode;
+        }
+
         $ch = curl_init();
         curl_setopt($ch,CURLOPT_URL, $this->url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 240);
         $result = curl_exec($ch);
         $stats = json_decode($result, true);
-        $stats['active']['value'] = $this->getTotalActive($stats);
 
         return $stats;
+    }
+
+    public function getStatsByCountry($countryCode = null)
+    {
+        $this->countryCode = $countryCode;
+        return $this->getStats();
     }
 
     /**

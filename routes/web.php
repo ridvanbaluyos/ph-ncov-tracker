@@ -18,7 +18,7 @@ Route::match(['get'], '/', 'HomeController@getIndex');
 
 Route::match(['get'], '/patient-database', 'HomeController@getPatients');
 
-Route::view('/global-stats', 'global-stats');
+Route::match(['get'], '/global-stats', 'HomeController@getGlobalStats');
 
 Route::view('/data-sources', 'data-sources');
 

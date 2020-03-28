@@ -6,7 +6,9 @@ use App\Helpers\Charts\ChartHelper;
 use http\Client\Response;
 use Illuminate\Http\Request;
 
-use App\Repositories\StatsRepository;
+use App\Repositories\Stats\CoronaVirusPh\Stats as CoronaVirusPhStats;
+use App\Repositories\Stats\Mathdroid\Stats as MathdroidStats;
+use App\Repositories\Stats\StatsRepository;
 use App\Repositories\PatientsRepository;
 
 /**
@@ -21,7 +23,8 @@ class HomeController extends Controller
      */
     public function getIndex(Request $request)
     {
-        $coronaStats = new StatsRepository();
+        $coronaVirusPh = new CoronaVirusPhStats();
+        $coronaStats = new StatsRepository($coronaVirusPh);
         $stats = $coronaStats->getStats();
 
         $chartAgeGender = ChartHelper::formatStackedBarChartByAgesSexes($stats['ages_sexes']);
@@ -46,5 +49,20 @@ class HomeController extends Controller
         $data['patients'] = $patients;
 
         return response()->view('patients', ['data' => $data]);
+    }
+
+    public function getGlobalStats(Request $request)
+    {
+        $mathdroid = new MathdroidStats();
+        $coronaStats = new StatsRepository($mathdroid);
+        $statsGlobal = $coronaStats->getStats();
+        $stats = [
+            'global' => $statsGlobal,
+            'countries' => []
+        ];
+//        $statsByCountry = $coronaStats->getStatsByCountry();
+
+        $data['stats'] = $stats;
+        return response()->view('global-stats', ['data' => $data]);
     }
 }

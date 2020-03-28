@@ -1,7 +1,7 @@
 <?php
-namespace App\Http\Repositories\Stats\CoronaStats;
+namespace App\Repositories\Stats\CoronaVirusPh;
 
-use App\Repositories\StatsRepositoryInterface;
+use App\Repositories\Stats\StatsRepositoryInterface;
 
 /**
  * Class StatsCoronaStatsRepository
@@ -12,7 +12,7 @@ use App\Repositories\StatsRepositoryInterface;
  * @link       https://github.com/ridvanbaluyos/ph-covidtracker
  * @license    MIT
  */
-class StatsCoronaStatsRepository implements StatsRepositoryInterface
+class Stats implements StatsRepositoryInterface
 {
     /* API Base URL endpoint */
     private $url;
@@ -41,11 +41,24 @@ class StatsCoronaStatsRepository implements StatsRepositoryInterface
             $cases = json_decode($result, true);
             $stats = $this->normalizeData($cases);
             $stats['ages_sexes'] = $this->getAgeBySexData($cases);
+//            $stats['dates_statuses'] = $this->getDatesByStatusData($cases);
 
             return $stats;
         } catch (\Exception $e) {
             return null;
         }
+    }
+
+
+    /**
+     * Unavailable for this repository.
+     *
+     * @param $countryCode
+     * @return array
+     */
+    public function getStatsByCountry($countryCode)
+    {
+        return [];
     }
 
     /**
@@ -141,7 +154,36 @@ class StatsCoronaStatsRepository implements StatsRepositoryInterface
         return $stats;
     }
 
-    public function getAgeBySexData($cases)
+    private function getDatesByStatusData($cases)
+    {
+        $stats = [];
+        $datesStatusCtr = [];
+        foreach ($cases as $case) {
+            // Dates Stats
+            $date = $case['date'];
+            $status = strtolower($case['status']);
+            if (!array_key_exists($date, $stats)) {
+                $stats['dates'][$date] = [];
+                if (!array_key_exists($status, $stats['dates'][$date])) {
+                    $datesStatusCtr[$date][$status] = 1;
+                    $stats['dates'][$date][$status] = ++$datesStatusCtr[$date][$status];
+                } else {
+                    $stats['dates'][$date][$status] = ++$datesStatusCtr[$date][$status];
+                }
+            } else {
+                if (!array_key_exists($status, $stats['dates'][$date])) {
+                    $stats['dates'][$date][$status] = ++$datesStatusCtr[$date][$status];
+                } else {
+                    $stats['dates'][$date][$status] = [];
+                }
+            }
+        }
+
+//        dd($stats);
+        exit;
+    }
+
+    private function getAgeBySexData($cases)
     {
         $sexes = [
             'M' => [],

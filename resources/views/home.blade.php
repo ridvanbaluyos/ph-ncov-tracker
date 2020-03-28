@@ -373,7 +373,7 @@
                 stacked: true,
                 ticks: {
                   min: 0,
-                  max: 900,
+                  max: 1200,
                   maxTicksLimit: 15,
                   padding: 10,
                 },
