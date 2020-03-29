@@ -173,21 +173,6 @@
                         </p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xl-12 col-md-12 mb-12">
-                        <small>
-                            <i class="fas fa-clock fa-sm text-gray-300"></i>
-                            Last update from source: <span class="text-danger">{{ $data['statsByCountry']['lastUpdate'] }}</span>
-                        </small>
-                        <p>
-                            <small>
-                                <i class="fas fa-stopwatch fa-sm text-gray-300"></i>
-                                Syncs every <span class="text-danger">30 minutes</span> from:
-                                <span><a href="https://covid19.mathdro.id/api" target="_blank">https://covid19.mathdro.id/api</a></span>
-                            </small>
-                        </p>
-                    </div>
-                </div>
             @endif
         </div>
         @include('partials.footer')

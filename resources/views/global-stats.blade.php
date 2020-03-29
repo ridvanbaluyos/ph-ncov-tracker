@@ -224,33 +224,6 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-6 mb-4">
-                            <div class="card bg-secondary text-white shadow">
-                                <div class="card-body">
-                                    Last Updated:
-                                    <div class="text-white-50 small">
-                                        <ul>
-                                            <li>{{ $data['global']['lastUpdate'] }}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-4">
-                            <div class="card bg-secondary text-white shadow">
-                                <div class="card-body">
-                                    Data Source:
-                                    <div class="text-white-50 small">
-                                        <ul>
-                                            <li><a href="https://covid19.mathdro.id/api" target="_blank"style="text-decoration: none; color: black;">Serving data from John Hopkins University CSSE as a JSON API</a></li>
-                                        </ul>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-xl-12 col-md-12 mb-12">
                             <small>
                                 <i class="fas fa-clock fa-sm text-gray-300"></i>
