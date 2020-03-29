@@ -54,12 +54,12 @@
         </a>
     </li>
 
-    <li @if (Request::is('credits')) class="nav-item active" @else class="nav-item" @endif>
-        <a class="nav-link" href="/credits">
-            <i class="fas fa-fw fa-thumbs-up"></i>
-            <span>Credits</span>
-        </a>
-    </li>
+{{--    <li @if (Request::is('credits')) class="nav-item active" @else class="nav-item" @endif>--}}
+{{--        <a class="nav-link" href="/credits">--}}
+{{--            <i class="fas fa-fw fa-thumbs-up"></i>--}}
+{{--            <span>Credits</span>--}}
+{{--        </a>--}}
+{{--    </li>--}}
 
     <li @if (Request::is('about')) class="nav-item active" @else class="nav-item" @endif>
         <a class="nav-link" href="/about">
