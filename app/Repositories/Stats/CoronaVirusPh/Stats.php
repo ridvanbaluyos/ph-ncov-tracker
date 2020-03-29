@@ -219,8 +219,7 @@ class Stats implements StatsRepositoryInterface
             }
         }
 
-//        dd($stats);
-        exit;
+        return $stats;
     }
 
     private function getAgeBySexData($cases)

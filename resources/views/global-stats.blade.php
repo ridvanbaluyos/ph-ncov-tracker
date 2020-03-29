@@ -207,8 +207,8 @@
                         </div>
                     </div>
 
+                    <!--
                     <div class="row">
-                        <!-- Daily Cumulative -->
                         <div class="col-xl-12 col-md-12 mb-12">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
@@ -222,7 +222,7 @@
                             </div>
                         </div>
                     </div>
-
+                    -->
                     <div class="row">
                         <div class="col-xl-12 col-md-12 mb-12">
                             <small>
