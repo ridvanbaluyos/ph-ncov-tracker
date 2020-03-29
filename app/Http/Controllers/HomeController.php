@@ -23,16 +23,18 @@ class HomeController extends Controller
      */
     public function getIndex(Request $request)
     {
-        $coronaVirusPh = new CoronaVirusPhStats();
-        $coronaStats = new StatsRepository($coronaVirusPh);
-        $stats = $coronaStats->getStats();
+        $mathdroid = new MathdroidStats();
+        $coronaStats = new StatsRepository($mathdroid);
+        $statsByCountry = $coronaStats->getStatsByCountry('PH');
+        $dailyTimeSeriesByCountry = $coronaStats->getDailyStatsByCountry('Philippines');
+        $data['statsByCountry'] = $statsByCountry;
+        $data['dailyTimeSeriesByCountry'] = $dailyTimeSeriesByCountry;
+        $data['lastUpdate'] = $statsByCountry['lastUpdate'];
+        $chartDailyTimeSeriesByCountry = ChartHelper::formatLineChart($dailyTimeSeriesByCountry);
 
-        $chartAgeGender = ChartHelper::formatStackedBarChartByAgesSexes($stats['ages_sexes']);
-        $chartCasesDates = ChartHelper::formatLineBarChartCasesByDates($stats['dates']);
-
-        $data['stats'] = $stats;
-        $data['charts']['chartAgeGender'] = $chartAgeGender;
-        $data['charts']['chartCasesDates'] = $chartCasesDates;
+        $data['charts'] = [
+            'dailyTimeSeriesByCountry' => $chartDailyTimeSeriesByCountry
+        ];
 
         return response()->view('home', ['data' => $data]);
     }
@@ -60,6 +62,10 @@ class HomeController extends Controller
         $statsTopCountriesByDeaths = $coronaStats->getTopCountriesByStatus('deaths');
         $statsTopCountriesByRecovery = $coronaStats->getTopCountriesByStatus('recovered');
 
+//        $dailyTimeSeriesByCountry = $coronaStats->getDailyStatsByCountry();
+
+//        $statsByCountry = $coronaStats->getDailyStatsByCountry('Philippines');
+//        $chartCasesByDatesCountry = ChartHelper::formatLineBarChartCasesByDatesCountry($statsByCountry);
         $stats = [
             'global' => $statsGlobal,
             'top_countries' => [
@@ -67,11 +73,27 @@ class HomeController extends Controller
                 'deaths' => $statsTopCountriesByDeaths,
                 'recoveries' => $statsTopCountriesByRecovery,
             ],
-            'countries' => []
+            'charts' => [
+//                'casesByDatesCountry' => $chartCasesByDatesCountry,
+            ]
         ];
-//        $statsByCountry = $coronaStats->getStatsByCountry();
+        //$statsByCountry = $coronaStats->getStatsByCountry();
 
-        $data['stats'] = $stats;
+        $data = $stats;
         return response()->view('global-stats', ['data' => $data]);
+    }
+
+    public function getGenerateData(Request $request)
+    {
+        // January 22, 2020 is the earliest data we have for mathdroid API.
+        $startTime = $request->input('startTime', '2020-01-22');
+        $endTime = $request->input('endTime', date('Y-m-d'));
+
+        $mathdroid = new MathdroidStats();
+        $coronaStats = new StatsRepository($mathdroid);
+
+        $dailyStats = $coronaStats->getDailyStatsByCountry('Philippines', $startTime, $endTime);
+
+        dd($dailyStats);
     }
 }

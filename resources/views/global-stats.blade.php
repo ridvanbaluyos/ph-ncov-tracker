@@ -5,7 +5,7 @@
         <div id="content">
             @include('partials.sidebar-toggle')
             <div class="container-fluid">
-                @if (empty($data['stats']['global']))
+                @if (empty($data['global']))
                     <div class="row">
                         <div class="col-lg-6 offset-lg-3 mb-4">
                             <div class="card shadow mb-4">
@@ -32,11 +32,8 @@
                                         <div class="col mr-2">
                                             <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">Confirmed</div>
                                             <div class="h1 mb-0 font-weight-bold text-gray-800">
-                                                {{ number_format($data['stats']['global']['confirmed']['value'], 0, '.', ',') }}
+                                                {{ number_format($data['global']['confirmed']['value'], 0, '.', ',') }}
                                             </div>
-                                            <small>
-                                                <h6></h6>
-                                            </small>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -54,9 +51,9 @@
                                         <div class="col mr-2">
                                             <div class="text-lg font-weight-bold text-success text-uppercase mb-1">Recovered</div>
                                             <div class="h1 mb-0 font-weight-bold text-gray-800">
-                                                {{ number_format($data['stats']['global']['recovered']['value'], 0, '.', ',') }}
+                                                {{ number_format($data['global']['recovered']['value'], 0, '.', ',') }}
                                                 <small>
-                                                    <h6>({{ round($data['stats']['global']['recovered']['value'] / $data['stats']['global']['confirmed']['value'] , 4) * 100}}% Recovery Rate)</h6>
+                                                    <h6>({{ round($data['global']['recovered']['value'] / $data['global']['confirmed']['value'] , 4) * 100}}% Recovery Rate)</h6>
                                                 </small>
                                             </div>
                                         </div>
@@ -78,9 +75,9 @@
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
                                                     <div class="h1 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                        {{ number_format($data['stats']['global']['deaths']['value'], 0, '.', ',') }}
+                                                        {{ number_format($data['global']['deaths']['value'], 0, '.', ',') }}
                                                         <small>
-                                                            <h6>({{ round($data['stats']['global']['deaths']['value'] / $data['stats']['global']['confirmed']['value'] , 4) * 100}}% Mortality Rate)</h6>
+                                                            <h6>({{ round($data['global']['deaths']['value'] / $data['global']['confirmed']['value'] , 4) * 100}}% Mortality Rate)</h6>
                                                         </small>
                                                     </div>
                                                 </div>
@@ -103,7 +100,7 @@
                                             <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">Active</div>
                                             <div class="h1 mb-0 font-weight-bold text-gray-800">
                                                 {{ number_format(
-                                                    ($data['stats']['global']['confirmed']['value'] - ($data['stats']['global']['recovered']['value'] + $data['stats']['global']['deaths']['value'])),
+                                                    ($data['global']['confirmed']['value'] - ($data['global']['recovered']['value'] + $data['global']['deaths']['value'])),
                                                     0,
                                                     '.',
                                                     ','
@@ -124,7 +121,7 @@
                         <div class="col-lg-3 mb-3">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Countries</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Regions</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-sm table-hover">
@@ -136,7 +133,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($data['stats']['top_countries']['confirmed'] as $country)
+                                        @foreach ($data['top_countries']['confirmed'] as $country)
                                             <tr>
                                                 <th>{{ $loop->iteration }}</th>
                                                 <td>{{ $country['combinedKey'] }}</td>
@@ -153,7 +150,7 @@
                         <div class="col-lg-3 mb-3">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Countries</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Regions</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-sm table-hover">
@@ -165,7 +162,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($data['stats']['top_countries']['recoveries'] as $country)
+                                        @foreach ($data['top_countries']['recoveries'] as $country)
                                             <tr>
                                                 <th>{{ $loop->iteration }}</th>
                                                 <td>{{ $country['combinedKey'] }}</td>
@@ -182,7 +179,7 @@
                         <div class="col-lg-3 mb-3">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Countries</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Regions</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-sm table-hover">
@@ -194,7 +191,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($data['stats']['top_countries']['deaths'] as $country)
+                                        @foreach ($data['top_countries']['deaths'] as $country)
                                             <tr>
                                                 <th>{{ $loop->iteration }}</th>
                                                 <td>{{ $country['combinedKey'] }}</td>
@@ -211,13 +208,29 @@
                     </div>
 
                     <div class="row">
+                        <!-- Daily Cumulative -->
+                        <div class="col-xl-12 col-md-12 mb-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Daily Time Series</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-bar">
+                                        <canvas id="daily_time_series"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-lg-6 mb-4">
                             <div class="card bg-secondary text-white shadow">
                                 <div class="card-body">
                                     Last Updated:
                                     <div class="text-white-50 small">
                                         <ul>
-                                            <li>{{ $data['stats']['global']['lastUpdate'] }}</li>
+                                            <li>{{ $data['global']['lastUpdate'] }}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -237,10 +250,33 @@
                             </div>
                         </div>
                     </div>
-
-
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12 mb-12">
+                            <small>
+                                <i class="fas fa-clock fa-sm text-gray-300"></i>
+                                Last update from source: <span class="text-danger">{{ $data['global']['lastUpdate'] }}</span>
+                            </small>
+                            <p>
+                                <small>
+                                    <i class="fas fa-stopwatch fa-sm text-gray-300"></i>
+                                    Syncs every <span class="text-danger">30 minutes</span> from:
+                                    <span><a href="https://covid19.mathdro.id/api" target="_blank">https://covid19.mathdro.id/api</a></span>
+                                </small>
+                            </p>
+                        </div>
+                    </div>
                 @endif
-                @include('partials.footer')
             </div>
+            @include('partials.footer')
         </div>
+@endsection
+
+
+
+@section('js-page-specific')
+    @if (!is_null($data['charts']))
+        <script src="/vendor/chart.js/Chart.min.js"></script>
+        <script type="text/javascript">
+        </script>
+    @endif
 @endsection

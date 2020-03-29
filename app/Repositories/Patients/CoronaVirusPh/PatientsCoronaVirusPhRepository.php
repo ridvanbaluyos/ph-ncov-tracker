@@ -2,6 +2,8 @@
 namespace App\Repositories\Patients\CoronaVirusPh;
 
 use App\Repositories\PatientsRepositoryInterface;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Class StatsCoronaStatsRepository
@@ -32,14 +34,27 @@ class PatientsCoronaVirusPhRepository implements PatientsRepositoryInterface
      */
     public function getPatients()
     {
-        $ch = curl_init();
-        curl_setopt($ch,CURLOPT_URL, $this->url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 240);
-        $result = curl_exec($ch);
-        $result = json_decode($result, true);
+        $serializedKey = md5(serialize('patients_') . date('Y-m-d'));
 
-        $patients = $this->normalizeData($result);
+        try {
+            if (Cache::has($serializedKey)) {
+                return Cache::get($serializedKey);
+            } else {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $this->url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 240);
+                $result = curl_exec($ch);
+                $result = json_decode($result, true);
+
+                $patients = $this->normalizeData($result);
+
+                $expiresAt = Carbon::now()->addDays(1);
+                Cache::put($serializedKey, $patients, $expiresAt);
+            }
+        } catch (\Exception $e) {
+            return null;
+        }
 
         return $patients;
     }

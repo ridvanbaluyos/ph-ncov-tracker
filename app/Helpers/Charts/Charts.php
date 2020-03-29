@@ -46,7 +46,6 @@ class ChartHelper
 
     public static function formatLineBarChartCasesByDates($stats)
     {
-
         $cumulative = [];
 
         $prev = null;
@@ -67,6 +66,35 @@ class ChartHelper
             'labels' => $labels,
             'dates' => $dates,
             'cumulative' => $cumulative
+        ];
+    }
+
+    public static function formatLineChart($data)
+    {
+        $labels = "['" . implode("','", array_keys($data)) . "']";
+        $confirmed = [];
+        $deaths = [];
+        $recoveries = [];
+        $active = [];
+
+        foreach ($data as $status) {
+            array_push($confirmed, (int) $status['confirmed']);
+            array_push($deaths, (int) $status['deaths']);
+            array_push($recoveries, (int) $status['recovered']);
+            array_push($active, (int) $status['confirmed'] - ($status['deaths'] + $status['recovered']));
+        }
+
+        $confirmed = "['" . implode("','", array_values($confirmed)) . "']";
+        $deaths = "['" . implode("','", array_values($deaths)) . "']";
+        $recoveries = "['" . implode("','", array_values($recoveries)) . "']";
+        $active = "['" . implode("','", array_values($active)) . "']";
+
+        return [
+            'labels' => $labels,
+            'confirmed' => $confirmed,
+            'deaths' => $deaths,
+            'recoveries' => $recoveries,
+            'active' => $active,
         ];
     }
 }

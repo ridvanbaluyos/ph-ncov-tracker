@@ -41,4 +41,16 @@ class StatsRepository implements StatsRepositoryInterface
     {
         return $this->statsRepository->getGlobalStats();
     }
+
+    public function getDailyStatsByCountry($country = null, $startDate = null, $endDate = null)
+    {
+        $startDate = $startDate ?? '2020-01-22';
+        $endDate = $endDate ?? date('Y-m-d');
+
+        if (is_null($country)) {
+            return $this->statsRepository->getDailyStatsGlobal($startDate, $endDate);
+        } else {
+            return $this->statsRepository->getDailyStatsByCountry($country, $startDate, $endDate);
+        }
+    }
 }

@@ -2,6 +2,7 @@
 namespace App\Repositories\Stats\CoronaVirusPh;
 
 use App\Repositories\Stats\StatsRepositoryInterface;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Class StatsCoronaStatsRepository
@@ -32,18 +33,24 @@ class Stats implements StatsRepositoryInterface
      */
     public function request()
     {
+        $serializedKey = md5(serialize('stats_') . date('Y-m-d'));
         try {
-            $ch = curl_init();
-            curl_setopt($ch,CURLOPT_URL, $this->url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 240);
-            $result = curl_exec($ch);
-            $cases = json_decode($result, true);
-            $stats = $this->normalizeData($cases);
-            $stats['ages_sexes'] = $this->getAgeBySexData($cases);
-//            $stats['dates_statuses'] = $this->getDatesByStatusData($cases);
+            if (Cache::has($serializedKey)) {
+                return Cache::get($serializedKey);
+            } else {
+                $ch = curl_init();
+                curl_setopt($ch,CURLOPT_URL, $this->url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 240);
+                $result = curl_exec($ch);
+                $cases = json_decode($result, true);
+                $stats = $this->normalizeData($cases);
+                $stats['ages_sexes'] = $this->getAgeBySexData($cases);
+                //$stats['dates_statuses'] = $this->getDatesByStatusData($cases);
 
-            return $stats;
+                Cache::forever($serializedKey, $stats);
+                return $stats;
+            }
         } catch (\Exception $e) {
             return null;
         }
@@ -177,6 +184,14 @@ class Stats implements StatsRepositoryInterface
         }
 
         return $stats;
+    }
+
+    public function getDailyStatsGlobal(?string $startDate, ?string $endDate)
+    {
+    }
+
+    public function getDailyStatsByCountry($country, ?string $startDate, ?string $endDate)
+    {
     }
 
     private function getDatesByStatusData($cases)
