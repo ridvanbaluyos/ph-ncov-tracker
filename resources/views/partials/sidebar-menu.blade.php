@@ -47,6 +47,13 @@
 
     <hr class="sidebar-divider">
 
+    <li @if (Request::is('ambassador')) class="nav-item active" @else class="nav-item" @endif>
+        <a class="nav-link" href="/ambassador">
+            <i class="fas fa-fw fa-medal"></i>
+            <span>Be an Ambassador</span>
+        </a>
+    </li>
+
     <li @if (Request::is('credits')) class="nav-item active" @else class="nav-item" @endif>
         <a class="nav-link" href="/credits">
             <i class="fas fa-fw fa-thumbs-up"></i>

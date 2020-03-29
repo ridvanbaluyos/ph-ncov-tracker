@@ -20,6 +20,12 @@ Route::match(['get'], '/patient-database', 'HomeController@getPatients');
 
 Route::match(['get'], '/global-stats', 'HomeController@getGlobalStats');
 
+Route::match(['get'], '/generate-data', 'HomeController@getGenerateData');
+
+Route::view('/downloads', 'partials.under-construction');
+
+Route::view('/ambassador', 'ambassador');
+
 Route::view('/data-sources', 'data-sources');
 
 Route::view('/credits', 'credits');
