@@ -38,7 +38,7 @@
         </a>
     </li>
 
-    <li @if (Request::is('data-download')) class="nav-item active" @else class="nav-item" @endif>
+    <li @if (Request::is('downloads')) class="nav-item active" @else class="nav-item" @endif>
         <a class="nav-link" href="/downloads">
             <i class="fas fa-fw fa-download"></i>
             <span>Downloads</span>
