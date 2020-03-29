@@ -7,7 +7,12 @@ use Illuminate\Support\Facades\Cache;
 
 /**
  * Class MathdroidStatsRepository
- * @package App\Http\Repositories\Mathdroid
+ * https://github.com/mathdroid/covid-19-api
+ *
+ * @package     App\Http\Repositories\Mathdroid
+ * @author      Ridvan Baluyos <ridvan@baluyos.net>
+ * @link        https://github.com/ridvanbaluyos/ph-ncov-tracker
+ * @license     MIT
  */
 class Stats implements StatsRepositoryInterface
 {
@@ -27,6 +32,7 @@ class Stats implements StatsRepositoryInterface
 
     /**
      * Sends the request to the API.
+     *
      * @return mixed
      */
     public function request()
@@ -64,6 +70,13 @@ class Stats implements StatsRepositoryInterface
         return $globalStats;
     }
 
+    /**
+     * This function gets the daily global stats.
+     *
+     * @param $startDate
+     * @param $endDate
+     * @return array|mixed
+     */
     public function getDailyStatsGlobal($startDate, $endDate)
     {
         $serializedKey = md5(serialize('global_daily_stats'));
@@ -111,30 +124,14 @@ class Stats implements StatsRepositoryInterface
         return $statsByCountry;
     }
 
-    public function getStats()
-    {
-        // TODO: Implement getStats() method.
-    }
-
-
-    public function getTopCountriesByStatus($status, $limit = 5)
-    {
-        $serializedKey = md5(serialize('top_countries_by_status') . $status);
-        if (Cache::has($serializedKey)) {
-            $stats = Cache::get($serializedKey);
-        } else {
-            $this->endpoint = $this->baseUrl . '/' . $status;
-            $stats = $this->request();
-            $stats = array_slice($stats, 0, $limit);
-
-            $expiresAt = Carbon::now()->addMinutes(30);
-            Cache::put($serializedKey, $stats, $expiresAt);
-
-        }
-
-        return $stats;
-    }
-
+    /**
+     * This function gets the daily stats by country.
+     *
+     * @param $country
+     * @param $startDate
+     * @param $endDate
+     * @return array
+     */
     public function getDailyStatsByCountry($country, $startDate, $endDate)
     {
         $dateCtr = $startDate;
@@ -196,5 +193,30 @@ class Stats implements StatsRepositoryInterface
         }
 
        return $daily;
+    }
+
+    /**
+     * This function gets the top countries by status.
+     *
+     * @param $status
+     * @param int $limit
+     * @return array|mixed
+     */
+    public function getTopCountriesByStatus($status, $limit = 5)
+    {
+        $serializedKey = md5(serialize('top_countries_by_status') . $status);
+        if (Cache::has($serializedKey)) {
+            $stats = Cache::get($serializedKey);
+        } else {
+            $this->endpoint = $this->baseUrl . '/' . $status;
+            $stats = $this->request();
+            $stats = array_slice($stats, 0, $limit);
+
+            $expiresAt = Carbon::now()->addMinutes(30);
+            Cache::put($serializedKey, $stats, $expiresAt);
+
+        }
+
+        return $stats;
     }
 }

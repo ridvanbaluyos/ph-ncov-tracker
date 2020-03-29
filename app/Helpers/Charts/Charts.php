@@ -69,6 +69,12 @@ class ChartHelper
         ];
     }
 
+    /**
+     * This function formats the data to be used in a  line chart.
+     *
+     * @param $data
+     * @return array
+     */
     public static function formatLineChart($data)
     {
         $labels = "['" . implode("','", array_keys($data)) . "']";

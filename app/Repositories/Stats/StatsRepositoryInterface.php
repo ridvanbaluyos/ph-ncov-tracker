@@ -7,8 +7,4 @@ namespace App\Repositories\Stats;
  */
 interface StatsRepositoryInterface
 {
-    /**
-     * @return mixed
-     */
-    public function getStats();
 }

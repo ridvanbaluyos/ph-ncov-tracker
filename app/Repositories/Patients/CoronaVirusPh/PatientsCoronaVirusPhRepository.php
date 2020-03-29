@@ -201,6 +201,10 @@ class PatientsCoronaVirusPhRepository implements PatientsRepositoryInterface
             $hospital = 'De Los Santos Medical Center';
         }
 
+        if (stripos($hospital, 'Dr. Paulino') !== false) {
+            $hospital = 'Dr. Paulino J. Garcia Memorial Research and Medical Center';
+        }
+
         return $hospital;
     }
 }

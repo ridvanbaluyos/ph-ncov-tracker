@@ -18,6 +18,8 @@ use App\Repositories\PatientsRepository;
 class HomeController extends Controller
 {
     /**
+     * This controller gets the home page.
+     *
      * @param  Request $request
      * @return \Illuminate\Http\Response
      */
@@ -40,19 +42,37 @@ class HomeController extends Controller
     }
 
     /**
+     * This controller gets the patients page.
+     *
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function getPatients(Request $request)
     {
-        $coronaVirusPh = new PatientsRepository();
-        $patients = $coronaVirusPh->getPatients();
+        $patientsCoronaVirusPh = new PatientsRepository();
+        $patients = $patientsCoronaVirusPh->getPatients();
 
+        $coronaVirusPh = new CoronaVirusPhStats();
+        $coronaStats = new StatsRepository($coronaVirusPh);
+        $stats = $coronaStats->getStats();
+
+        $chartAgeGender = ChartHelper::formatStackedBarChartByAgesSexes($stats['ages_sexes']);
+        $chartCasesDates = ChartHelper::formatLineBarChartCasesByDates($stats['dates']);
+
+        $data['stats'] = $stats;
+        $data['charts']['chartAgeGender'] = $chartAgeGender;
+        $data['charts']['chartCasesDates'] = $chartCasesDates;
         $data['patients'] = $patients;
 
         return response()->view('patients', ['data' => $data]);
     }
 
+    /**
+     * This function gets the global stats page.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function getGlobalStats(Request $request)
     {
         $mathdroid = new MathdroidStats();
@@ -79,19 +99,5 @@ class HomeController extends Controller
 
         $data = $stats;
         return response()->view('global-stats', ['data' => $data]);
-    }
-
-    public function getGenerateData(Request $request)
-    {
-        // January 22, 2020 is the earliest data we have for mathdroid API.
-        $startTime = $request->input('startTime', '2020-01-22');
-        $endTime = $request->input('endTime', date('Y-m-d'));
-
-        $mathdroid = new MathdroidStats();
-        $coronaStats = new StatsRepository($mathdroid);
-
-        $dailyStats = $coronaStats->getDailyStatsByCountry('Philippines', $startTime, $endTime);
-
-        dd($dailyStats);
     }
 }
