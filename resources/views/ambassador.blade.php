@@ -16,7 +16,7 @@
                                     <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 50rem;" src="img/mbru_ambassador.png" alt="">
                                 </div>
                                 <div class="text-left">
-                                    <p>I am now an <a href="https://twitter.com/hashtag/MBRUCommunityImmunity?src=hashtag_click" target="_blank">#MBRUCommunityImmunity Ambassador</a>.</p>
+                                    <p>I am now an <a href="https://twitter.com/hashtag/MBRUCommunityImmunity?src=hashtag_click" target="_blank">#MBRUCommunityImmunity</a> Ambassador.</p>
                                     <p>
                                         I am responsible to protect myself and my community from COVID-19.
                                     </p>
