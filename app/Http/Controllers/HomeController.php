@@ -62,10 +62,9 @@ class HomeController extends Controller
         $statsTopCountriesByDeaths = $coronaStats->getTopCountriesByStatus('deaths');
         $statsTopCountriesByRecovery = $coronaStats->getTopCountriesByStatus('recovered');
 
-//        $dailyTimeSeriesByCountry = $coronaStats->getDailyStatsByCountry();
-
-//        $statsByCountry = $coronaStats->getDailyStatsByCountry('Philippines');
-//        $chartCasesByDatesCountry = ChartHelper::formatLineBarChartCasesByDatesCountry($statsByCountry);
+        //$dailyTimeSeriesByCountry = $coronaStats->getDailyStatsByCountry();
+        //$statsByCountry = $coronaStats->getDailyStatsByCountry('Philippines');
+        //$chartCasesByDatesCountry = ChartHelper::formatLineBarChartCasesByDatesCountry($statsByCountry);
         $stats = [
             'global' => $statsGlobal,
             'top_countries' => [
@@ -74,10 +73,9 @@ class HomeController extends Controller
                 'recoveries' => $statsTopCountriesByRecovery,
             ],
             'charts' => [
-//                'casesByDatesCountry' => $chartCasesByDatesCountry,
+                //'casesByDatesCountry' => $chartCasesByDatesCountry,
             ]
         ];
-        //$statsByCountry = $coronaStats->getStatsByCountry();
 
         $data = $stats;
         return response()->view('global-stats', ['data' => $data]);

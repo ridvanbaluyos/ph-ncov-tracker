@@ -37,7 +37,9 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">Confirmed</div>
-                                        <div class="h1 mb-0 font-weight-bold text-gray-800">{{ $data['statsByCountry']['confirmed']['value'] }}</div>
+                                        <div class="h1 mb-0 font-weight-bold text-gray-800">
+                                            {{ number_format($data['statsByCountry']['confirmed']['value'], 0, '.', ',') }}
+                                        </div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -55,7 +57,7 @@
                                     <div class="col mr-2">
                                         <div class="text-lg font-weight-bold text-success text-uppercase mb-1">Recovered</div>
                                         <div class="h1 mb-0 font-weight-bold text-gray-800">
-                                            {{ $data['statsByCountry']['recovered']['value'] }}
+                                            {{ number_format($data['statsByCountry']['recovered']['value'], 0, '.', ',') }}
                                             <small>
                                                 <h6>({{ round($data['statsByCountry']['recovered']['value'] / $data['statsByCountry']['confirmed']['value'] , 4) * 100}}% Recovery Rate)</h6>
                                             </small>
@@ -141,11 +143,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="row">
                     <!-- Daily Cumulative -->
-                    <div class="col-xl-12 col-md-12 mb-12">
+                    <div class="col-xl-6 col-md-6 mb-6">
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">Daily Time Series (Overall)</h6>
@@ -153,6 +154,20 @@
                             <div class="card-body">
                                 <div class="chart-bar">
                                     <canvas id="daily_time_series"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recovery vs Mortality -->
+                    <div class="col-xl-6 col-md-6 mb-6">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Daily Time Series (Recovery vs Mortality)</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-bar">
+                                    <canvas id="daily_time_series_mortality_recovery"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -194,21 +209,25 @@
                 label: 'Confirmed',
                 data: {!!   $data['charts']['dailyTimeSeriesByCountry']['confirmed'] !!},
                 borderColor: '#4e73df',
+                fill: false,
               }, {
                 type: 'line',
                 label: 'Active',
                 data: {!!   $data['charts']['dailyTimeSeriesByCountry']['active'] !!},
                 borderColor: '#f6c23e',
+                fill: false,
               }, {
                 type: 'line',
                 label: 'Deaths',
                 data: {!!   $data['charts']['dailyTimeSeriesByCountry']['deaths'] !!},
                 borderColor: '#e74a3b',
+                fill: false,
               }, {
                 type: 'line',
                 label: 'Recoveries',
                 data: {!!   $data['charts']['dailyTimeSeriesByCountry']['recoveries'] !!},
                 borderColor: '#1cc88a',
+                fill: false,
               }]
             },
             options: {
@@ -260,11 +279,13 @@
                 label: 'Confirmed',
                 data: {!!   $data['charts']['dailyTimeSeriesByCountry']['confirmed'] !!},
                 borderColor: '#4e73df',
+                fill: false,
               }, {
                 type: 'line',
                 label: 'Active',
                 data: {!!   $data['charts']['dailyTimeSeriesByCountry']['active'] !!},
                 borderColor: '#f6c23e',
+                fill: false,
               }]
             },
             options: {
@@ -316,11 +337,71 @@
                 label: 'Deaths',
                 data: {!!   $data['charts']['dailyTimeSeriesByCountry']['deaths'] !!},
                 borderColor: '#e74a3b',
+                fill: false,
               }, {
                 type: 'line',
                 label: 'Recoveries',
                 data: {!!   $data['charts']['dailyTimeSeriesByCountry']['recoveries'] !!},
                 borderColor: '#1cc88a',
+                fill: false,
+              }]
+            },
+            options: {
+              maintainAspectRatio: false,
+              responsive: true,
+              layout: {
+                padding: {
+                  left: 10,
+                  right: 25,
+                  top: 25,
+                  bottom: 0
+                }
+              },
+              scales: {
+                xAxes: [{
+                  gridLines: {
+                    display: false,
+                    drawBorder: false
+                  },
+                  ticks: {
+                    maxTicksLimit: 6
+                  },
+                }],
+                yAxes: [{
+                  ticks: {
+                    min: 0,
+                    maxTicksLimit: 15,
+                    padding: 10,
+                  },
+                  gridLines: {
+                    color: 'rgb(234, 236, 244)',
+                    zeroLineColor: 'rgb(234, 236, 244)',
+                    drawBorder: false,
+                    borderDash: [2],
+                    zeroLineBorderDash: [2]
+                  }
+                }]
+              }
+            }
+          });
+
+          let dailyTimeSeriesRecoveryMortality = document.getElementById('daily_time_series_mortality_recovery').getContext('2d');
+          let dailyTimeSeriesRecoveryMortalityChart = new Chart(dailyTimeSeriesRecoveryMortality, {
+            type: 'line',
+            data: {
+              labels: {!!   $data['charts']['dailyTimeSeriesByCountry']['labels'] !!},
+              datasets: [{
+                type: 'line',
+                label: 'Mortality Rate (%)',
+                data: {!!   $data['charts']['dailyTimeSeriesByCountry']['mortalityRate'] !!},
+                borderColor: '#e74a3b',
+                fill: false,
+              }, {
+                type: 'line',
+                label: 'Recovery Rate (%)',
+                data: {!!   $data['charts']['dailyTimeSeriesByCountry']['recoveryRate'] !!},
+                borderColor: '#1cc88a',
+                fill: false,
               }]
             },
             options: {

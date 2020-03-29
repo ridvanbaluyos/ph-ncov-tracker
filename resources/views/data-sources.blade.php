@@ -23,19 +23,24 @@
                                         any information. The information is provided on an "as is" basis<sup><a href="https://infotrek.er.usgs.gov/doc/wdnr_biology/Public_Stocking/disclaimer.htm" target="_blank">[1]</a></sup>,
                                         and may not be used for commercial and medical purposes<sup><a href="https://systems.jhu.edu/research/public-health/ncov/" target="_blank">[2]</a></sup>.
                                     </p>
-                                    For patients database and PH statistics:
+                                    For patients database:
                                     <ul>
                                         <li>
                                             <a href="https://coronavirus-ph-api.now.sh" target="_blank">coronavirus-ph (API)</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.reddit.com/r/Coronavirus_PH/comments/fehzke/ph_covid19_case_database_is_now_live/" target="_blank">https://www.reddit.com/r/Coronavirus_PH</a>
+                                            <p>
+                                                <small>Wikipedia, /r/Coronavirus_PH</small>
+                                            </p>
                                         </li>
                                     </ul>
-                                    For global statistics:
+                                    For statistics:
                                     <ul>
                                         <li>
-                                            <a href="https://github.com/mathdroid/covid-19-api" target="_blank">Serving data from John Hopkins University CSSE as a JSON API</a>
+                                            <a href="https://github.com/mathdroid/covid-19-api" target="_blank">
+                                                COVID-19 API
+                                            </a>
+                                            <p>
+                                                <small>Serving data from John Hopkins University CSSE</small>
+                                            </p>
                                         </li>
                                     </ul>
                                 </div>

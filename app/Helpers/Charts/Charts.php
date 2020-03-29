@@ -76,25 +76,34 @@ class ChartHelper
         $deaths = [];
         $recoveries = [];
         $active = [];
+        $recoveryRate = [];
+        $mortalityRate = [];
 
         foreach ($data as $status) {
             array_push($confirmed, (int) $status['confirmed']);
             array_push($deaths, (int) $status['deaths']);
             array_push($recoveries, (int) $status['recovered']);
             array_push($active, (int) $status['confirmed'] - ($status['deaths'] + $status['recovered']));
+            array_push($recoveryRate, $status['recoveryRate']);
+            array_push($mortalityRate, $status['mortalityRate']);
         }
 
-        $confirmed = "['" . implode("','", array_values($confirmed)) . "']";
-        $deaths = "['" . implode("','", array_values($deaths)) . "']";
-        $recoveries = "['" . implode("','", array_values($recoveries)) . "']";
-        $active = "['" . implode("','", array_values($active)) . "']";
+        // Assemble data for Charts
+        $confirmed      = "['" . implode("','", array_values($confirmed)) . "']";
+        $deaths         = "['" . implode("','", array_values($deaths)) . "']";
+        $recoveries     = "['" . implode("','", array_values($recoveries)) . "']";
+        $active         = "['" . implode("','", array_values($active)) . "']";
+        $recoveryRate   = "['" . implode("','", array_values($recoveryRate)) . "']";
+        $mortalityRate  = "['" . implode("','", array_values($mortalityRate)) . "']";
 
         return [
-            'labels' => $labels,
-            'confirmed' => $confirmed,
-            'deaths' => $deaths,
-            'recoveries' => $recoveries,
-            'active' => $active,
+            'labels'        => $labels,
+            'confirmed'     => $confirmed,
+            'deaths'        => $deaths,
+            'recoveries'    => $recoveries,
+            'active'        => $active,
+            'recoveryRate'  => $recoveryRate,
+            'mortalityRate' => $mortalityRate,
         ];
     }
 }

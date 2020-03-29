@@ -37,9 +37,8 @@ class Stats implements StatsRepositoryInterface
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 240);
             $result = curl_exec($ch);
-            $stats = json_decode($result, true);
 
-            return $stats;
+            return json_decode($result, true);
         } catch (\Exception $e) {
             return null;
         }
@@ -74,17 +73,21 @@ class Stats implements StatsRepositoryInterface
             $this->endpoint = $this->baseUrl . '/daily';
             $result = $this->request();
 
+            $globalDailyStats = [];
             foreach ($result as $dailyStats) {
                 $date = $dailyStats['reportDate'];
-                $globalDailyStats[$date] = $dailyStats;
-//                [
-//                    'confirmed' => $dailyStats['totalConfirmed'] ?? 0,
-//                    'recovered' => $dailyStats['totalRecovered'] ?? 0,
-//                    'deaths' => $dailyStats['totalDeaths'] ?? 0
-//                ];
+                $globalDailyStats[$date] = [
+                    'confirmed' => $dailyStats['confirmed']['total'] ?? 0,
+                    'recovered' => $dailyStats['recovered']['total'] ?? 0,
+                    'deaths' => $dailyStats['deaths']['total'] ?? 0,
+                    'deltaConfirmed' => $dailyStats['deltaConfirmed'] ?? 0,
+                    'deltaRecovered' => $dailyStats['deltaRecovered'] ?? 0,
+                    'deltaDeaths' => $dailyStats['deltaDeaths'] ?? 0,
+                ];
             }
-            dd($globalDailyStats);
         }
+
+        return $globalDailyStats;
     }
 
     /**
@@ -106,63 +109,6 @@ class Stats implements StatsRepositoryInterface
         }
 
         return $statsByCountry;
-    }
-
-    /**
-     * This function gets the daily time series by country.
-     *
-     * @param $country - the country (eg. PH, Philippines)
-     * @param $startDate - the start date
-     * @param $endDate - the end date
-     * @return array
-     */
-    public function getDailyTimeSeriesByCountry($country, $startDate, $endDate)
-    {
-        $dateCtr = $startDate;
-        $daily = [];
-
-        while ($dateCtr <= $endDate) {
-            $serializedKey = md5(serialize('daily_time_series_') . $country . $dateCtr);
-
-            if (Cache::has($serializedKey)) {
-                $dailyTimeSeries = Cache::get($serializedKey);
-            } else {
-                // Convert to 1-22-2020
-                $dateParam = date('n-d-Y', strtotime($dateCtr));
-                $this->endpoint = $this->baseUrl . '/daily/' . $dateParam;
-                $dailyTimeSeriesByCountry = $this->request();
-
-                $expiresAt = Carbon::now()->addMinutes(30);
-                Cache::put($serializedKey, $dailyTimeSeriesByCountry, $expiresAt);
-            }
-
-            if (!empty($dailyTimeSeries)) {
-                foreach ($dailyTimeSeries as $timeSeries) {
-                    if ($timeSeries['countryRegion'] === $country) {
-                        $confirmed = ($timeSeries['confirmed'] === '')
-                            ? 0
-                            : $timeSeries['confirmed'];
-                        $deaths    = ($timeSeries['deaths'] === '')
-                            ? 0
-                            : $timeSeries['deaths'];
-                        $recovered = ($timeSeries['recovered'] === '')
-                            ? 0
-                            : $timeSeries['recovered'];
-
-                        $daily[$dateCtr] = [
-                            'confirmed' => $confirmed,
-                            'deaths'    => $deaths,
-                            'recovered' => $recovered,
-                            'active'    => $confirmed - ($deaths + $recovered)
-                        ];
-                    }
-                }
-
-            }
-            $dateCtr = date('Y-m-d', strtotime($dateCtr . ' +1 day'));
-        }
-
-        return $daily;
     }
 
     public function getStats()
@@ -217,15 +163,30 @@ class Stats implements StatsRepositoryInterface
             if (!empty($dailyTimeSeries)) {
                 foreach ($dailyTimeSeries as $timeSeries) {
                     if ($timeSeries['countryRegion'] === 'Philippines') {
-                        $confirmed = ($timeSeries['confirmed'] === '') ? 0 : $timeSeries['confirmed'];
-                        $deaths = ($timeSeries['deaths'] === '') ? 0 : $timeSeries['deaths'];
-                        $recovered = ($timeSeries['recovered'] === '') ? 0 : $timeSeries['recovered'];
+                        $confirmed = ($timeSeries['confirmed'] === '')
+                            ? 0
+                            : $timeSeries['confirmed'];
+                        $deaths = ($timeSeries['deaths'] === '')
+                            ? 0
+                            : $timeSeries['deaths'];
+                        $recovered = ($timeSeries['recovered'] === '')
+                            ? 0
+                            : $timeSeries['recovered'];
+
+                        $recoveryRate  = ($confirmed !== 0)
+                            ? round($recovered / $confirmed, 4) * 100
+                            : 0;
+                        $mortalityRate = ($confirmed !== 0)
+                            ? round($deaths / $confirmed, 4) * 100
+                            : 0;
 
                         $daily[$dateCtr] = [
                             'confirmed' => $confirmed,
                             'deaths' => $deaths,
                             'recovered' => $recovered,
-                            'active' => $confirmed - ($deaths + $recovered)
+                            'active' => $confirmed - ($deaths + $recovered),
+                            'mortalityRate' => $recoveryRate,
+                            'recoveryRate'  => $mortalityRate,
                         ];
                     }
                 }

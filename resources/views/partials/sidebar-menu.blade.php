@@ -34,9 +34,18 @@
     <li @if (Request::is('data-sources')) class="nav-item active" @else class="nav-item" @endif>
         <a class="nav-link" href="/data-sources">
             <i class="fas fa-fw fa-database"></i>
-            <span>Data Sources</span>
+            <span>Data Source</span>
         </a>
     </li>
+
+    <li @if (Request::is('data-download')) class="nav-item active" @else class="nav-item" @endif>
+        <a class="nav-link" href="/downloads">
+            <i class="fas fa-fw fa-download"></i>
+            <span>Downloads</span>
+        </a>
+    </li>
+
+    <hr class="sidebar-divider">
 
     <li @if (Request::is('credits')) class="nav-item active" @else class="nav-item" @endif>
         <a class="nav-link" href="/credits">
