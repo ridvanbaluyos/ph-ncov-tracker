@@ -204,7 +204,7 @@
                         <small>
                             <i class="fas fa-stopwatch fa-sm text-gray-300"></i>
                             Syncs every <span class="text-danger">30 minutes</span> from:
-                            <a href="https://coronavirus-ph-api.now.sh/cases" target="_blank">https://coronavirus-ph-api.now.sh/cases</a>
+                            <a href="https://coronavirus-ph-api.herokuapp.com/cases" target="_blank">https://coronavirus-ph-api.herokuapp.com/cases</a>
                         </small>
                     </div>
                 </div>
@@ -336,7 +336,6 @@
                   stacked: true,
                   ticks: {
                     min: 0,
-                    max: 300,
                     maxTicksLimit: 15,
                     padding: 10,
                   },

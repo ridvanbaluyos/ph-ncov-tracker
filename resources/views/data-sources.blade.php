@@ -26,20 +26,29 @@
                                     For patients database:
                                     <ul>
                                         <li>
-                                            <a href="https://coronavirus-ph-api.now.sh" target="_blank">coronavirus-ph (API)</a>
+                                            <a href="https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_the_Philippines" target="_blank">Wikipedia</a>,
+                                            <a href="https://www.reddit.com/r/Coronavirus_PH/comments/fehzke/ph_covid19_case_database_is_now_live/" target=""_blank">Reddit</a>
                                             <p>
-                                                <small>Wikipedia, /r/Coronavirus_PH</small>
+                                                <small><a href="https://github.com/sorxrob/coronavirus-ph-api">https://github.com/sorxrob/coronavirus-ph-api</a></small>
                                             </p>
                                         </li>
                                     </ul>
                                     For statistics:
                                     <ul>
                                         <li>
-                                            <a href="https://github.com/mathdroid/covid-19-api" target="_blank">
-                                                COVID-19 API
+                                            <a href="https://systems.jhu.edu/research/public-health/ncov/" target="_blank">
+                                                John Hopkins University CSSE
                                             </a>
                                             <p>
-                                                <small>Serving data from John Hopkins University CSSE</small>
+                                                <small><a href="https://github.com/mathdroid/covid-19-api">https://github.com/mathdroid/covid-19-api</a></small>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.worldometers.info/coronavirus/" target="_blank">
+                                               World Meters
+                                            </a>
+                                            <p>
+                                                <small><a href="https://github.com/sagarkarira/coronavirus-tracker-cli" target="_blank">https://github.com/sagarkarira/coronavirus-tracker-cli</a> </small>
                                             </p>
                                         </li>
                                     </ul>
