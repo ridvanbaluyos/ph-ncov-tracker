@@ -32,6 +32,19 @@
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 </head>
 <body id="page-top">
+    <!-- Informizely code for site "ncov.gundamserver.com". Place this code right after the <body> tag on every page of your site. -->
+    <script id="_informizely_script_tag" type="text/javascript">
+      var IzWidget = IzWidget || {};
+      (function (d) {
+        var scriptElement = d.createElement('script');
+        scriptElement.type = 'text/javascript'; scriptElement.async = true;
+        scriptElement.src = "https://insitez.blob.core.windows.net/site/71fdfaa7-2885-4912-b053-40e23bacfa3d.js";
+        var node = d.getElementById('_informizely_script_tag');
+        node.parentNode.insertBefore(scriptElement, node);
+      })(document);
+    </script>
+    <noscript><a href="https://www.informizely.com/">Informizely customer feedback surveys</a></noscript>
+    <!-- End Informizely code. -->
     <div id="wrapper">
         <!-- Sidebar Menu -->
         @include('partials.sidebar-menu')
