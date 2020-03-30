@@ -24,7 +24,7 @@ class PatientsCoronaVirusPhRepository implements PatientsRepositoryInterface
      */
     public function __construct()
     {
-        $this->url = 'https://coronavirus-ph-api.now.sh/cases';
+        $this->url = 'https://coronavirus-ph-api.herokuapp.com/cases';
     }
 
     /**
