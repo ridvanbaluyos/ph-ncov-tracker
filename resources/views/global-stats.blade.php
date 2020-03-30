@@ -5,7 +5,7 @@
         <div id="content">
             @include('partials.sidebar-toggle')
             <div class="container-fluid">
-                @if (empty($data['global']))
+                @if (empty($data['stats']['world']))
                     <div class="row">
                         <div class="col-lg-6 offset-lg-3 mb-4">
                             <div class="card shadow mb-4">
@@ -32,7 +32,7 @@
                                         <div class="col mr-2">
                                             <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">Confirmed</div>
                                             <div class="h1 mb-0 font-weight-bold text-gray-800">
-                                                {{ number_format($data['global']['confirmed']['value'], 0, '.', ',') }}
+                                                {{ number_format($data['stats']['world']['confirmed'], 0, '.', ',') }}
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -51,9 +51,9 @@
                                         <div class="col mr-2">
                                             <div class="text-lg font-weight-bold text-success text-uppercase mb-1">Recovered</div>
                                             <div class="h1 mb-0 font-weight-bold text-gray-800">
-                                                {{ number_format($data['global']['recovered']['value'], 0, '.', ',') }}
+                                                {{ number_format($data['stats']['world']['recovered'], 0, '.', ',') }}
                                                 <small>
-                                                    <h6>({{ round($data['global']['recovered']['value'] / $data['global']['confirmed']['value'] , 4) * 100}}% Recovery Rate)</h6>
+                                                    <h6>({{ round($data['stats']['world']['recovered'] / $data['stats']['world']['confirmed'], 4) * 100}}% Recovery Rate)</h6>
                                                 </small>
                                             </div>
                                         </div>
@@ -75,9 +75,9 @@
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
                                                     <div class="h1 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                        {{ number_format($data['global']['deaths']['value'], 0, '.', ',') }}
+                                                        {{ number_format($data['stats']['world']['deaths'], 0, '.', ',') }}
                                                         <small>
-                                                            <h6>({{ round($data['global']['deaths']['value'] / $data['global']['confirmed']['value'] , 4) * 100}}% Mortality Rate)</h6>
+                                                            <h6>({{ round($data['stats']['world']['deaths'] / $data['stats']['world']['confirmed'], 4) * 100}}% Mortality Rate)</h6>
                                                         </small>
                                                     </div>
                                                 </div>
@@ -99,13 +99,7 @@
                                         <div class="col mr-2">
                                             <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">Active</div>
                                             <div class="h1 mb-0 font-weight-bold text-gray-800">
-                                                {{ number_format(
-                                                    ($data['global']['confirmed']['value'] - ($data['global']['recovered']['value'] + $data['global']['deaths']['value'])),
-                                                    0,
-                                                    '.',
-                                                    ','
-                                                    )
-                                                }}
+                                                {{ number_format($data['stats']['world']['active'], 0, '.', ',') }}
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -118,91 +112,49 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-3 mb-3">
+                        <div class="col-lg-12 mb-12">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Regions</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Global Statistics</h6>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-sm table-hover">
+                                <div class="table-responsive">
+                                    <table class="table hover" id="countryRankingsTable" style="width: 100%">
                                         <thead>
                                         <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Country/Region</th>
-                                            <th scope="col">Count</th>
+                                            <th scope="col" class="text-center">Rank</th>
+                                            <th scope="col" class="text-center">Country/Region</th>
+                                            <th scope="col" class="text-right">Total Cases</th>
+                                            <th scope="col" class="text-right">New Cases</th>
+                                            <th scope="col" class="text-right">Total Deaths</th>
+                                            <th scope="col" class="text-right">New Deaths</th>
+                                            <th scope="col" class="text-right">Recovered</th>
+                                            <th scope="col" class="text-right">Active</th>
+                                            <th scope="col" class="text-right">Critical</th>
+                                            <th scope="col" class="text-right">Cases/1M</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($data['top_countries']['confirmed'] as $country)
+                                        @foreach ($data['stats']['countries'] as $country)
                                             <tr>
-                                                <th>{{ $loop->iteration }}</th>
-                                                <td>{{ $country['combinedKey'] }}</td>
+                                                <th class="text-center">{{ $loop->iteration }}</th>
                                                 <td>
-                                                    {{ number_format($country['confirmed'], 0, '.', ',') }}
-                                                </td>
+                                                    <img class="img-responsive" style="max-width: 25px;" src="{{ $country['countryInfo']['flag'] }}" alt="{{ $country['country'] }}" />
+                                                    {{ $country['country'] }} ({{ $country['countryCode'] ?? '' }}) </td>
+                                                <td class="text-right text-primary">{{ number_format($country['confirmed'], 0, '.', ',') }}</td>
+                                                <td class="text-right">{{ number_format($country['todayCases'], 0, '.', ',') }}</td>
+                                                <td class="text-right text-danger">{{ number_format($country['deaths'], 0, '.', ',') }}</td>
+                                                <td class="text-right">{{ number_format($country['todayDeaths'], 0, '.', ',') }}</td>
+                                                <td class="text-right text-success">{{ number_format($country['recovered'], 0, '.', ',') }}</td>
+                                                <td class="text-right text-warning">{{ number_format($country['active'], 0, '.', ',') }}</td>
+                                                <td class="text-right">{{ number_format($country['critical'], 0, '.', ',') }}</td>
+                                                <td class="text-right">{{ number_format($country['casesPerOneMillion'], 0, '.', ',') }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 mb-3">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Regions</h6>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table table-sm table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Country/Region</th>
-                                            <th scope="col">Count</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach ($data['top_countries']['recoveries'] as $country)
-                                            <tr>
-                                                <th>{{ $loop->iteration }}</th>
-                                                <td>{{ $country['combinedKey'] }}</td>
-                                                <td>
-                                                    {{ number_format($country['recovered'], 0, '.', ',') }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 mb-3">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Regions</h6>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table table-sm table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Country/Region</th>
-                                            <th scope="col">Count</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach ($data['top_countries']['deaths'] as $country)
-                                            <tr>
-                                                <th>{{ $loop->iteration }}</th>
-                                                <td>{{ $country['combinedKey'] }}</td>
-                                                <td>
-                                                    {{ number_format($country['deaths'], 0, '.', ',') }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -225,15 +177,11 @@
                     -->
                     <div class="row">
                         <div class="col-xl-12 col-md-12 mb-12">
-                            <small>
-                                <i class="fas fa-clock fa-sm text-gray-300"></i>
-                                Last update from source: <span class="text-danger">{{ $data['global']['lastUpdate'] }}</span>
-                            </small>
                             <p>
                                 <small>
                                     <i class="fas fa-stopwatch fa-sm text-gray-300"></i>
                                     Syncs every <span class="text-danger">30 minutes</span> from:
-                                    <span><a href="https://covid19.mathdro.id/api" target="_blank">https://covid19.mathdro.id/api</a></span>
+                                    <span><a href="https://corona-stats.online" target="_blank">https://corona-stats.online</a></span>
                                 </small>
                             </p>
                         </div>
@@ -244,12 +192,19 @@
         </div>
 @endsection
 
-
-
 @section('js-page-specific')
-    @if (!is_null($data['charts']))
-        <script src="/vendor/chart.js/Chart.min.js"></script>
-        <script type="text/javascript">
-        </script>
-    @endif
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+      // Call the dataTables jQuery plugin
+      $(document).ready(function() {
+        let table = $('#countryRankingsTable').DataTable({
+          'lengthMenu': [
+            [50, 100, 200, -1],
+            [50, 100, 200, 'All']
+          ]
+        });
+      });
+    </script>
+
 @endsection

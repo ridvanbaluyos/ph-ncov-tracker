@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Repositories\Stats\CoronaVirusPh\Stats as CoronaVirusPhStats;
 use App\Repositories\Stats\Mathdroid\Stats as MathdroidStats;
+use App\Repositories\Stats\CoronaStatsOnline\Stats as CoronaStats;
 use App\Repositories\Stats\StatsRepository;
 use App\Repositories\PatientsRepository;
 
@@ -75,29 +76,15 @@ class HomeController extends Controller
      */
     public function getGlobalStats(Request $request)
     {
-        $mathdroid = new MathdroidStats();
-        $coronaStats = new StatsRepository($mathdroid);
-        $statsGlobal = $coronaStats->getGlobalStats();
-        $statsTopCountriesByCases = $coronaStats->getTopCountriesByStatus('confirmed');
-        $statsTopCountriesByDeaths = $coronaStats->getTopCountriesByStatus('deaths');
-        $statsTopCountriesByRecovery = $coronaStats->getTopCountriesByStatus('recovered');
+        $coronaOnline = new CoronaStats();
+        $coronaStats = new StatsRepository($coronaOnline);
+        $globalStats = $coronaStats->getStats();
 
-        //$dailyTimeSeriesByCountry = $coronaStats->getDailyStatsByCountry();
-        //$statsByCountry = $coronaStats->getDailyStatsByCountry('Philippines');
-        //$chartCasesByDatesCountry = ChartHelper::formatLineBarChartCasesByDatesCountry($statsByCountry);
-        $stats = [
-            'global' => $statsGlobal,
-            'top_countries' => [
-                'confirmed' => $statsTopCountriesByCases,
-                'deaths' => $statsTopCountriesByDeaths,
-                'recoveries' => $statsTopCountriesByRecovery,
-            ],
-            'charts' => [
-                //'casesByDatesCountry' => $chartCasesByDatesCountry,
-            ]
+        $data['stats'] = [
+            'countries' => $globalStats['data'],
+            'world' => $globalStats['worldStats']
         ];
 
-        $data = $stats;
         return response()->view('global-stats', ['data' => $data]);
     }
 }
