@@ -2,6 +2,7 @@
 namespace App\Repositories\Stats\CoronaVirusPh;
 
 use App\Repositories\Stats\StatsRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -48,7 +49,8 @@ class Stats implements StatsRepositoryInterface
                 $stats['ages_sexes'] = $this->getAgeBySexData($cases);
                 //$stats['dates_statuses'] = $this->getDatesByStatusData($cases);
 
-                Cache::forever($serializedKey, $stats);
+                $expiresAt = Carbon::now()->addMinutes(30);
+                Cache::put($serializedKey, $stats, $expiresAt);
                 return $stats;
             }
         } catch (\Exception $e) {

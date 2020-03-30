@@ -49,7 +49,7 @@ class PatientsCoronaVirusPhRepository implements PatientsRepositoryInterface
 
                 $patients = $this->normalizeData($result);
 
-                $expiresAt = Carbon::now()->addDays(1);
+                $expiresAt = Carbon::now()->addMinutes(30);
                 Cache::put($serializedKey, $patients, $expiresAt);
             }
         } catch (\Exception $e) {

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories\Stats\Mathdroid;
 
 use App\Repositories\Stats\StatsRepositoryInterface;
@@ -39,7 +40,7 @@ class Stats implements StatsRepositoryInterface
     {
         try {
             $ch = curl_init();
-            curl_setopt($ch,CURLOPT_URL, $this->endpoint);
+            curl_setopt($ch, CURLOPT_URL, $this->endpoint);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 240);
             $result = curl_exec($ch);
@@ -64,6 +65,7 @@ class Stats implements StatsRepositoryInterface
             $this->endpoint = $this->baseUrl;
             $globalStats = $this->request();
             $expiresAt = Carbon::now()->addMinutes(30);
+
             Cache::put($serializedKey, $globalStats, $expiresAt);
         }
 
@@ -115,7 +117,7 @@ class Stats implements StatsRepositoryInterface
         if (Cache::has($serializedKey)) {
             $statsByCountry = Cache::get($serializedKey);
         } else {
-            $this->endpoint =  $this->baseUrl . '/countries/' . $country;
+            $this->endpoint = $this->baseUrl . '/countries/' . $country;
             $statsByCountry = $this->request();
             $expiresAt = Carbon::now()->addMinutes(30);
             Cache::put($serializedKey, $statsByCountry, $expiresAt);
@@ -153,7 +155,7 @@ class Stats implements StatsRepositoryInterface
                 $result = curl_exec($ch);
                 $dailyTimeSeries = json_decode($result, true);
 
-                $expiresAt = Carbon::now()->addDays(1);
+                $expiresAt = Carbon::now()->addMinutes(30);
                 Cache::put($serializedKey, $dailyTimeSeries, $expiresAt);
             }
 
@@ -170,7 +172,7 @@ class Stats implements StatsRepositoryInterface
                             ? 0
                             : $timeSeries['recovered'];
 
-                        $recoveryRate  = ($confirmed !== 0)
+                        $recoveryRate = ($confirmed !== 0)
                             ? round($recovered / $confirmed, 4) * 100
                             : 0;
                         $mortalityRate = ($confirmed !== 0)
@@ -183,7 +185,7 @@ class Stats implements StatsRepositoryInterface
                             'recovered' => $recovered,
                             'active' => $confirmed - ($deaths + $recovered),
                             'mortalityRate' => $recoveryRate,
-                            'recoveryRate'  => $mortalityRate,
+                            'recoveryRate' => $mortalityRate,
                         ];
                     }
                 }
@@ -192,7 +194,7 @@ class Stats implements StatsRepositoryInterface
             $dateCtr = date('Y-m-d', strtotime($dateCtr . ' +1 day'));
         }
 
-       return $daily;
+        return $daily;
     }
 
     /**
