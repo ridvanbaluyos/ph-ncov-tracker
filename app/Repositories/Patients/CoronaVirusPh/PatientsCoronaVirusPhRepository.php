@@ -79,7 +79,7 @@ class PatientsCoronaVirusPhRepository implements PatientsRepositoryInterface
             $patient['hospital'] = $this->normalizeHospital($result['hospital_admitted_to']);
             $patient['travel_history'] = $result['travel_history'];
             $patient['status'] = $result['status'];
-            $patient['resident_of'] = $result['resident_of'];
+            $patient['resident_of'] = ucwords(strtolower($result['resident_of']));
 
             $patients[] = $patient;
         }
@@ -121,6 +121,7 @@ class PatientsCoronaVirusPhRepository implements PatientsRepositoryInterface
      */
     private function normalizeHospital($hospital)
     {
+        $hospital = ucwords(strtolower($hospital));
         if (stripos($hospital, 'transferred to ') !== false) {
             $hospital = substr($hospital, strpos($hospital, 'transferred to ') + 15);
         }

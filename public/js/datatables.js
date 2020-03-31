@@ -18,11 +18,11 @@ function buildSelect( table ) {
         let column = table.column(this, {search: 'applied'});
         let filters = [
             'filterByCase', 'filterByDate', 'filterByAge',
-            'filterBySex', 'filterByNationality', 'filterByHospital',
-            'filterByTravelHistory', 'filterByStatus'
+            'filterBySex', 'filterByNationality', 'filterByResidence',
+            'filterByHospital', 'filterByTravelHistory', 'filterByStatus',
         ];
 
-        let enabledFilters = [3, 4, 5, 6, 7];
+        let enabledFilters = [3, 4, 5, 6, 7, 8];
 
         if (enabledFilters.indexOf(column.index()) > -1) {
             let filterId = filters[column.index()];

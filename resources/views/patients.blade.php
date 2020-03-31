@@ -130,28 +130,33 @@
                         <div class="card-body">
                             <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <label for="inputPassword4">Status</label>
+                                    <label for="filterByStatus">Status</label>
                                     <div id="filterByStatus"></div>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputEmail4">Nationality</label>
+                                    <label for="filterByNationality">Nationality</label>
                                     <div id="filterByNationality"></div>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputPassword4">Sex</label>
+                                    <label for="filterBySex">Sex</label>
                                     <div id="filterBySex"></div>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputPassword4">Travel History</label>
+                                    <label for="filterByTravelHistory">Travel History</label>
                                     <div id="filterByTravelHistory"></div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="inputPassword4">Hospital</label>
+                                    <label for="filterByHospital">Hospital</label>
                                     <div id="filterByHospital"></div>
                                 </div>
+                                <div class="form-group col-md-3">
+                                    <label for="filterByResidence">Residence</label>
+                                    <div id="filterByResidence"></div>
+                                </div>
                             </div>
+
                             <hr />
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" style="width: 100%">
@@ -162,6 +167,7 @@
                                         <th>Age</th>
                                         <th>Sex</th>
                                         <th>Nationality</th>
+                                        <th>Residence</th>
                                         <th>Hospital</th>
                                         <th>Travel History</th>
                                         <th>Status</th>
@@ -174,6 +180,7 @@
                                         <th>Age</th>
                                         <th>Sex</th>
                                         <th>Nationality</th>
+                                        <th>Residence</th>
                                         <th>Hospital</th>
                                         <th>Travel History</th>
                                         <th>Status</th>
@@ -187,6 +194,7 @@
                                                 <td>{{ $patient['age'] }}</td>
                                                 <td>{{ $patient['sex'] }}</td>
                                                 <td>{{ $patient['nationality'] }}</td>
+                                                <td>{{ $patient['resident_of'] }}</td>
                                                 <td>{{ $patient['hospital'] }}</td>
                                                 <td>{{ $patient['travel_history'] }}</td>
                                                 <td>{{ $patient['status'] }}</td>
