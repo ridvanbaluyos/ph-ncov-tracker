@@ -23,6 +23,12 @@
                         </div>
                     </div>
                 @else
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Global Statistics</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" target="_blank">
+                            <i class="fas fa-code fa-sm text-white-50"></i> View Source
+                        </a>
+                    </div>
                     <div class="row">
                         <!-- Confirmed Cases -->
                         <div class="col-xl-3 col-md-6 mb-4">
@@ -115,7 +121,7 @@
                         <div class="col-lg-12 mb-12">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Global Statistics</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Country Statistics</h6>
                                 </div>
                                 <div class="card-body">
                                 <div class="table-responsive">
@@ -141,10 +147,26 @@
                                                 <td>
                                                     <img class="img-responsive" style="max-width: 25px;" src="{{ $country['countryInfo']['flag'] }}" alt="{{ $country['country'] }}" />
                                                     {{ $country['country'] }} ({{ $country['countryCode'] ?? '' }}) </td>
-                                                <td class="text-right text-primary">{{ number_format($country['confirmed'], 0, '.', ',') }}</td>
-                                                <td class="text-right">{{ number_format($country['todayCases'], 0, '.', ',') }}</td>
-                                                <td class="text-right text-danger">{{ number_format($country['deaths'], 0, '.', ',') }}</td>
-                                                <td class="text-right">{{ number_format($country['todayDeaths'], 0, '.', ',') }}</td>
+                                                <td class="text-right text-primary">
+                                                    {{ number_format($country['confirmed'], 0, '.', ',') }}
+                                                </td>
+                                                <td class="text-right">
+                                                    @if ($country['todayCases'] > 0)
+                                                        <span class="text-info">+{{ number_format($country['todayCases'], 0, '.', ',') }}</span>
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                                <td class="text-right text-danger">
+                                                    {{ number_format($country['deaths'], 0, '.', ',') }}</td>
+
+                                                <td class="text-right">
+                                                    @if ($country['todayDeaths'] > 0)
+                                                        <span class="text-info">+{{ number_format($country['todayDeaths'], 0, '.', ',') }}</span>
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
                                                 <td class="text-right text-success">{{ number_format($country['recovered'], 0, '.', ',') }}</td>
                                                 <td class="text-right text-warning">{{ number_format($country['active'], 0, '.', ',') }}</td>
                                                 <td class="text-right">{{ number_format($country['critical'], 0, '.', ',') }}</td>
@@ -180,8 +202,7 @@
                             <p>
                                 <small>
                                     <i class="fas fa-stopwatch fa-sm text-gray-300"></i>
-                                    Syncs every <span class="text-danger">30 minutes</span> from:
-                                    <span><a href="https://corona-stats.online" target="_blank">https://corona-stats.online</a></span>
+                                    Syncs every: <span class="text-danger">30 minutes</span> from source.
                                 </small>
                             </p>
                         </div>

@@ -201,11 +201,12 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12 col-md-12 mb-12">
-                        <small>
-                            <i class="fas fa-stopwatch fa-sm text-gray-300"></i>
-                            Syncs every <span class="text-danger">30 minutes</span> from:
-                            <a href="https://coronavirus-ph-api.herokuapp.com/cases" target="_blank">https://coronavirus-ph-api.herokuapp.com/cases</a>
-                        </small>
+                        <p>
+                            <small>
+                                <i class="fas fa-stopwatch fa-sm text-gray-300"></i>
+                                Syncs every: <span class="text-danger">30 minutes</span> from source.
+                            </small>
+                        </p>
                     </div>
                 </div>
             @endif

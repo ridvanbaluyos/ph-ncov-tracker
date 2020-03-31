@@ -24,10 +24,10 @@
                                     </p>
                                     <p>
                                         For any inconsistencies, please feel free to <a href="mailto:ridvan@baluyos.net">contact me</a>.
-                                        This website is under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.
                                     </p>
                                     <p>
-                                        Stay safe and healthy, my friends!
+                                        This website is under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.
+                                        However, my cat says it should be under <a href="http://www.wtfpl.net" target="_blank">WTFPL</a>.
                                     </p>
                                     <div class="text-center">
                                         <div class="d-none d-md-block">
