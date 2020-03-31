@@ -7,7 +7,7 @@
     <div id="content">
         @include('partials.sidebar-toggle')
         <div class="container-fluid">
-            @if (is_null($data['patients']))
+            @if (empty($data))
                 <div class="row">
                     <div class="col-lg-6 offset-lg-3 mb-4">
                         <div class="card shadow mb-4">
@@ -216,10 +216,11 @@
 @endsection
 
 @section('js-page-specific')
-    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="/vendor/chart.js/Chart.min.js"></script>
-    <script src="/js/datatables.js"></script>
+    @if (!empty($data))
+        <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <script src="/vendor/chart.js/Chart.min.js"></script>
+        <script src="/js/datatables.js"></script>
         <script type="text/javascript">
           // By Status Chart
           let byStatus = document.getElementById('byStatusChart');
@@ -408,6 +409,7 @@
                 }]
               }
             }
-          });
-      </script>
+            });
+        </script>
+    @endif
 @endsection

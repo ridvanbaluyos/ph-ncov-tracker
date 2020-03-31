@@ -57,13 +57,17 @@ class HomeController extends Controller
         $coronaStats = new StatsRepository($coronaVirusPh);
         $stats = $coronaStats->getStats();
 
-        $chartAgeGender = ChartHelper::formatStackedBarChartByAgesSexes($stats['ages_sexes']);
-        $chartCasesDates = ChartHelper::formatLineBarChartCasesByDates($stats['dates']);
+        $data = [];
+        if (!is_null($stats) && !is_null($patients)) {
+            $chartAgeGender = ChartHelper::formatStackedBarChartByAgesSexes($stats['ages_sexes']);
+            $chartCasesDates = ChartHelper::formatLineBarChartCasesByDates($stats['dates']);
 
-        $data['stats'] = $stats;
-        $data['charts']['chartAgeGender'] = $chartAgeGender;
-        $data['charts']['chartCasesDates'] = $chartCasesDates;
-        $data['patients'] = $patients;
+            $data['charts']['chartAgeGender'] = $chartAgeGender;
+            $data['charts']['chartCasesDates'] = $chartCasesDates;
+
+            $data['stats'] = $stats;
+            $data['patients'] = $patients;
+        }
 
         return response()->view('patients', ['data' => $data]);
     }
