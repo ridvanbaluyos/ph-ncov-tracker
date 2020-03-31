@@ -393,15 +393,15 @@
               labels: {!!   $data['charts']['dailyTimeSeriesByCountry']['labels'] !!},
               datasets: [{
                 type: 'line',
-                label: 'Mortality Rate (%)',
-                data: {!!   $data['charts']['dailyTimeSeriesByCountry']['mortalityRate'] !!},
-                borderColor: '#e74a3b',
-                fill: false,
-              }, {
-                type: 'line',
                 label: 'Recovery Rate (%)',
                 data: {!!   $data['charts']['dailyTimeSeriesByCountry']['recoveryRate'] !!},
                 borderColor: '#1cc88a',
+                fill: false,
+              }, {
+                type: 'line',
+                label: 'Mortality Rate (%)',
+                data: {!!   $data['charts']['dailyTimeSeriesByCountry']['mortalityRate'] !!},
+                borderColor: '#e74a3b',
                 fill: false,
               }]
             },

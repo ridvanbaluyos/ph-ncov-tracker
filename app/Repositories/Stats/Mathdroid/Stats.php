@@ -184,8 +184,8 @@ class Stats implements StatsRepositoryInterface
                             'deaths' => $deaths,
                             'recovered' => $recovered,
                             'active' => $confirmed - ($deaths + $recovered),
-                            'mortalityRate' => $recoveryRate,
-                            'recoveryRate' => $mortalityRate,
+                            'mortalityRate' => $mortalityRate,
+                            'recoveryRate' => $recoveryRate,
                         ];
                     }
                 }
