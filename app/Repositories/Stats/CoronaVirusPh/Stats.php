@@ -160,7 +160,7 @@ class Stats implements StatsRepositoryInterface
             }
 
             // Travel History Stats
-            $travelHistory = $case['had_recent_travel_history_abroad'];
+            $travelHistory = $case['travel_history'];
             if (!array_key_exists($travelHistory, $stats['travel_history'])) {
                 $travelHistoryCtr[$travelHistory] = 1;
                 $stats['travel_history'][$travelHistory] = $travelHistoryCtr[$travelHistory];
@@ -184,6 +184,9 @@ class Stats implements StatsRepositoryInterface
                 ++$stats['ages']['61~'];
             }
         }
+
+        // Sort date first.
+        ksort($stats['dates']);
 
         return $stats;
     }

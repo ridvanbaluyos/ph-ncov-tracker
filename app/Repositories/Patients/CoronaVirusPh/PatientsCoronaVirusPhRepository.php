@@ -48,7 +48,6 @@ class PatientsCoronaVirusPhRepository implements PatientsRepositoryInterface
                 $result = json_decode($result, true);
 
                 $patients = $this->normalizeData($result);
-
                 $expiresAt = Carbon::now()->addMinutes(30);
                 Cache::put($serializedKey, $patients, $expiresAt);
             }
@@ -72,14 +71,15 @@ class PatientsCoronaVirusPhRepository implements PatientsRepositoryInterface
         $patients = [];
         foreach ($results as $result) {
             $patient = [];
-            $patient['case'] = str_pad($result['case_no'], 3, 0, STR_PAD_LEFT);
+            $patient['case'] = str_pad($result['case_no'], 4, 0, STR_PAD_LEFT);
             $patient['date'] = $result['date'];
             $patient['age'] = $result['age'];
             $patient['sex'] = $this->normalizeSex($result['gender']);
             $patient['nationality'] = $result['nationality'];
             $patient['hospital'] = $this->normalizeHospital($result['hospital_admitted_to']);
-            $patient['travel_history'] = $result['had_recent_travel_history_abroad'];
+            $patient['travel_history'] = $result['travel_history'];
             $patient['status'] = $result['status'];
+            $patient['resident_of'] = $result['resident_of'];
 
             $patients[] = $patient;
         }

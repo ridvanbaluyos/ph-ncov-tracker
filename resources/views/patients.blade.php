@@ -42,7 +42,7 @@
                                     <span id="byStatusRecoveredValue" style="display: none;">{{ $data['stats']['status']['recovered'] }}</span>
                                     <span id="byStatusDiedValue" style="display: none;">{{ $data['stats']['status']['died'] }}</span>
                                     <span id="byStatusAdmittedValue" style="display: none;">{{ $data['stats']['status']['admitted'] }}</span>
-                                    <span id="byStatusTbaValue" style="display: none;">{{ $data['stats']['status']['tba'] }}</span>
+                                    <span id="byStatusTbaValue" style="display: none;">{{ ($data['stats']['status']['tba'] ?? 0) }}</span>
                                     <canvas id="byStatusChart"></canvas>
                                 </div>
                                 <div class="mt-4 text-center small">
