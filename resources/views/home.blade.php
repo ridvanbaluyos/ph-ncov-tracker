@@ -105,7 +105,7 @@
                                     <div class="col mr-2">
                                         <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">Active</div>
                                         <div class="h1 mb-0 font-weight-bold text-gray-800">
-                                            {{ number_format(($data['statsByCountry']['confirmed']['value'] - ($data['statsByCountry']['deaths']['value'] - $data['statsByCountry']['recovered']['value'])), 0, '.', ',') }}
+                                            {{ number_format(($data['statsByCountry']['confirmed']['value'] - ($data['statsByCountry']['deaths']['value'] + $data['statsByCountry']['recovered']['value'])), 0, '.', ',') }}
                                         </div>
                                     </div>
                                     <div class="col-auto">
