@@ -27,9 +27,9 @@
                                     <ul>
                                         <li>
                                             <a href="https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_the_Philippines" target="_blank">Wikipedia</a>,
-                                            <a href="https://www.reddit.com/r/Coronavirus_PH/comments/fehzke/ph_covid19_case_database_is_now_live/" target=""_blank">Reddit</a>
+                                            <a href="https://www.reddit.com/r/Coronavirus_PH/comments/fehzke/ph_covid19_case_database_is_now_live/" target="_blank">Reddit</a>
                                             <p>
-                                                <small><a href="https://github.com/sorxrob/coronavirus-ph-api">https://github.com/sorxrob/coronavirus-ph-api</a></small>
+                                                <small><a href="https://github.com/sorxrob/coronavirus-ph-api" target="_blank">https://github.com/sorxrob/coronavirus-ph-api</a></small>
                                             </p>
                                         </li>
                                     </ul>
@@ -40,7 +40,7 @@
                                                 John Hopkins University CSSE
                                             </a>
                                             <p>
-                                                <small><a href="https://github.com/mathdroid/covid-19-api">https://github.com/mathdroid/covid-19-api</a></small>
+                                                <small><a href="https://github.com/mathdroid/covid-19-api" target="_blank">https://github.com/mathdroid/covid-19-api</a></small>
                                             </p>
                                         </li>
                                         <li>
