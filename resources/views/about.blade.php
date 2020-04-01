@@ -29,6 +29,9 @@
                                         This website is under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.
                                         However, my cat says it should be under <a href="http://www.wtfpl.net" target="_blank">WTFPL</a>.
                                     </p>
+                                    <p class="text-center">
+                                        @include('partials.buy-me-coffee')
+                                    </p>
                                     <div class="text-center">
                                         <div class="d-none d-md-block">
                                             <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@ridvanbaluyos/video/6803921097201863938" data-video-id="6803921097201863938" style="max-width: 500px;min-width: 325px;" >
