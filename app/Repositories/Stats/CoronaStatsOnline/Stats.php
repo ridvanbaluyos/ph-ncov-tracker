@@ -70,4 +70,25 @@ class Stats implements StatsRepositoryInterface
 
         return $globalStats;
     }
+
+    /**
+     * This function gets the stats per country.
+     * 
+     * @param $country
+     * @return mixed
+     */
+    public function getStatsByCountry($country)
+    {
+        $serializedKey = md5(serialize($country . '_stats'));
+        if (Cache::has($serializedKey)) {
+            $countryStats = Cache::get($serializedKey);
+        } else {
+            $this->endpoint = $this->baseUrl . '/' . $country . '?format=json';
+            $countryStats = $this->request();
+            $expiresAt = Carbon::now()->addMinutes(30);
+            Cache::put($serializedKey, $countryStats, $expiresAt);
+        }
+
+        return $countryStats;
+    }
 }

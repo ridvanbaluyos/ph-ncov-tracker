@@ -26,15 +26,22 @@ class HomeController extends Controller
      */
     public function getIndex(Request $request)
     {
-        $mathdroid = new MathdroidStats();
-        $coronaStats = new StatsRepository($mathdroid);
-        $statsByCountry = $coronaStats->getStatsByCountry('PH');
-        $dailyTimeSeriesByCountry = $coronaStats->getDailyStatsByCountry('Philippines');
-        $data['statsByCountry'] = $statsByCountry;
-        $data['dailyTimeSeriesByCountry'] = $dailyTimeSeriesByCountry;
-        $data['lastUpdate'] = $statsByCountry['lastUpdate'];
-        $chartDailyTimeSeriesByCountry = ChartHelper::formatLineChart($dailyTimeSeriesByCountry);
+        $coronaOnline = new CoronaStats();
+        $coronaOnlineStats = new StatsRepository($coronaOnline);
+        $mainStats = $coronaOnlineStats->getStatsByCountry('PH');
 
+        $mathdroid = new MathdroidStats();
+        $mathdroidStats = new StatsRepository($mathdroid);
+        $detailedStats = $mathdroidStats->getStatsByCountry('PH');
+        $dailyTimeSeriesByCountry = $mathdroidStats->getDailyStatsByCountry('Philippines');
+
+        $data['mainStats'] = $mainStats['data'][0];
+        $data['detailedStats'] = $detailedStats;
+        $data['dailyTimeSeriesByCountry'] = $dailyTimeSeriesByCountry;
+        $data['lastUpdate'] = $detailedStats['lastUpdate'];
+
+        // Charts
+        $chartDailyTimeSeriesByCountry = ChartHelper::formatLineChart($dailyTimeSeriesByCountry);
         $data['charts'] = [
             'dailyTimeSeriesByCountry' => $chartDailyTimeSeriesByCountry
         ];

@@ -24,7 +24,7 @@
                 </div>
             @else
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Main Stats</h1>
                     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" target="_blank">
                         <i class="fas fa-code fa-sm text-white-50"></i> View Source
                     </a>
@@ -38,7 +38,12 @@
                                     <div class="col mr-2">
                                         <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">Confirmed</div>
                                         <div class="h1 mb-0 font-weight-bold text-gray-800">
-                                            {{ number_format($data['statsByCountry']['confirmed']['value'], 0, '.', ',') }}
+                                            {{ number_format($data['mainStats']['confirmed'], 0, '.', ',') }}
+                                            <span class="text-info small">(+{{ number_format($data['mainStats']['todayCases'], 0, '.', ',') }})</span>
+                                            <h6>
+                                                <i class="fas fa-vial fa-sm"></i>
+                                                {{ number_format($data['mainStats']['tests'], 0, '.', ',') }} tests conducted
+                                            </h6>
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -57,10 +62,11 @@
                                     <div class="col mr-2">
                                         <div class="text-lg font-weight-bold text-success text-uppercase mb-1">Recovered</div>
                                         <div class="h1 mb-0 font-weight-bold text-gray-800">
-                                            {{ number_format($data['statsByCountry']['recovered']['value'], 0, '.', ',') }}
-                                            <small>
-                                                <h6>({{ round($data['statsByCountry']['recovered']['value'] / $data['statsByCountry']['confirmed']['value'] , 4) * 100}}% Recovery Rate)</h6>
-                                            </small>
+                                            {{ number_format($data['mainStats']['recovered'], 0, '.', ',') }}
+                                            <h6>
+                                                <i class="fas fa-book-medical fa-sm"></i>
+                                                {{ round($data['mainStats']['recovered'] / $data['mainStats']['confirmed'] , 4) * 100}}% recovery rate
+                                            </h6>
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -81,10 +87,12 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
                                                 <div class="h1 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                    {{ number_format($data['statsByCountry']['deaths']['value'], 0, '.', ',') }}
-                                                    <small>
-                                                        <h6>({{ round($data['statsByCountry']['deaths']['value'] / $data['statsByCountry']['confirmed']['value'] , 4) * 100}}% Mortality Rate)</h6>
-                                                    </small>
+                                                    {{ number_format($data['mainStats']['deaths'], 0, '.', ',') }}
+                                                    <span class="text-info small">(+{{ number_format($data['mainStats']['todayDeaths'], 0, '.', ',') }})</span>
+                                                    <h6>
+                                                        <i class="fas fa-book-dead fa-sm"></i>
+                                                        {{ round($data['mainStats']['deaths'] / $data['mainStats']['confirmed'], 4) * 100}}% mortality rate
+                                                    </h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,7 +113,11 @@
                                     <div class="col mr-2">
                                         <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">Active</div>
                                         <div class="h1 mb-0 font-weight-bold text-gray-800">
-                                            {{ number_format(($data['statsByCountry']['confirmed']['value'] - ($data['statsByCountry']['deaths']['value'] + $data['statsByCountry']['recovered']['value'])), 0, '.', ',') }}
+                                            {{ number_format($data['mainStats']['active'], 0, '.', ',') }}
+                                            <h6>
+                                                <i class="fas fa-procedures  dfa-sm"></i>
+                                                {{ number_format($data['mainStats']['critical'], 0, '.', ',') }} critical
+                                            </h6>
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -115,6 +127,27 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 mb-12">
+                        <small>
+                            <i class="fas fa-clock fa-sm text-gray-300"></i>
+                            Last update: <span class="text-danger">{{ date('Y-m-d H:i:s', substr($data['mainStats']['updated'], 0, 10)) }}</span>
+                        </small>
+                        <p>
+                            <small>
+                                <i class="fas fa-stopwatch fa-sm text-gray-300"></i>
+                                Syncs every: <span class="text-danger">30 minutes</span> from source.
+                            </small>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Detailed Stats</h1>
+                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" target="_blank">
+                        <i class="fas fa-code fa-sm text-white-50"></i> View Source
+                    </a>
                 </div>
                 <div class="row">
                     <!-- Confirmed vs Active -->
@@ -178,7 +211,7 @@
                     <div class="col-xl-12 col-md-12 mb-12">
                         <small>
                             <i class="fas fa-clock fa-sm text-gray-300"></i>
-                            Last update: <span class="text-danger">{{ $data['statsByCountry']['lastUpdate'] }}</span>
+                            Last update: <span class="text-danger">{{ $data['detailedStats']['lastUpdate'] }}</span>
                         </small>
                         <p>
                             <small>
