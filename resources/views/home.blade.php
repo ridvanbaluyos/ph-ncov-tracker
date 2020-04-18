@@ -144,7 +144,7 @@
                     <div class="col-xl-12 col-md-12 mb-12">
                         <small>
                             <i class="fas fa-clock fa-sm text-gray-300"></i>
-                            Last update: <span class="text-danger">{{ date('Y-m-d H:i:s', substr($data['mainStats']['updated'], 0, 10)) }}</span>
+                            Last update: <span class="text-danger">{{ date('Y-m-d H:i:s T', substr($data['mainStats']['updated'], 0, 10)) }}</span>
                         </small>
                         <p>
                             <small>
@@ -157,9 +157,9 @@
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Detailed Stats</h1>
-                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" target="_blank">
-                        <i class="fas fa-code fa-sm text-white-50"></i> View Source
-                    </a>
+{{--                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" target="_blank">--}}
+{{--                        <i class="fas fa-code fa-sm text-white-50"></i> View Source--}}
+{{--                    </a>--}}
                 </div>
                 <div class="row">
                     <!-- Confirmed vs Active -->
@@ -223,7 +223,8 @@
                     <div class="col-xl-12 col-md-12 mb-12">
                         <small>
                             <i class="fas fa-clock fa-sm text-gray-300"></i>
-                            Last update: <span class="text-danger">{{ $data['detailedStats']['lastUpdate'] }}</span>
+                            Last update: <span class="text-danger">{{ date('Y-m-d H:i:s T', strtotime($data['detailedStats']['lastUpdate'])) }}</span>
+
                         </small>
                         <p>
                             <small>
