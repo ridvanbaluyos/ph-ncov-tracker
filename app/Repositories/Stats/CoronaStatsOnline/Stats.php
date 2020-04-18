@@ -73,7 +73,7 @@ class Stats implements StatsRepositoryInterface
 
     /**
      * This function gets the stats per country.
-     * 
+     *
      * @param $country
      * @return mixed
      */

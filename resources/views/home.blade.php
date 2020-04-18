@@ -41,8 +41,8 @@
                                             {{ number_format($data['mainStats']['confirmed'], 0, '.', ',') }}
                                             <span class="text-info small">(+{{ number_format($data['mainStats']['todayCases'], 0, '.', ',') }})</span>
                                             <h6>
-                                                <i class="fas fa-vial fa-sm"></i>
-                                                {{ number_format($data['mainStats']['tests'], 0, '.', ',') }} tests conducted
+                                                <i class="fas fa-street-view fa-sm"></i>
+                                                <span class="text-info">{{ number_format($data['mainStats']['casesPerOneMillion'], 0, '.', ',') }}</span> cases per 1 million
                                             </h6>
                                         </div>
                                     </div>
@@ -65,7 +65,7 @@
                                             {{ number_format($data['mainStats']['recovered'], 0, '.', ',') }}
                                             <h6>
                                                 <i class="fas fa-book-medical fa-sm"></i>
-                                                {{ round($data['mainStats']['recovered'] / $data['mainStats']['confirmed'] , 4) * 100}}% recovery rate
+                                                <span class="text-info">{{ round($data['mainStats']['recovered'] / $data['mainStats']['confirmed'] , 4) * 100}}%</span> recovery rate
                                             </h6>
                                         </div>
                                     </div>
@@ -91,7 +91,11 @@
                                                     <span class="text-info small">(+{{ number_format($data['mainStats']['todayDeaths'], 0, '.', ',') }})</span>
                                                     <h6>
                                                         <i class="fas fa-book-dead fa-sm"></i>
-                                                        {{ round($data['mainStats']['deaths'] / $data['mainStats']['confirmed'], 4) * 100}}% mortality rate
+                                                        <span class="text-info">{{ round($data['mainStats']['deaths'] / $data['mainStats']['confirmed'], 4) * 100}}%</span> mortality rate
+                                                    </h6>
+                                                    <h6>
+                                                        <i class="fas fa-street-view fa-sm"></i>
+                                                        <span class="text-info">{{ number_format($data['mainStats']['deathsPerOneMillion'], 0, '.', ',') }}</span> deaths per 1 million
                                                     </h6>
                                                 </div>
                                             </div>
@@ -115,8 +119,16 @@
                                         <div class="h1 mb-0 font-weight-bold text-gray-800">
                                             {{ number_format($data['mainStats']['active'], 0, '.', ',') }}
                                             <h6>
-                                                <i class="fas fa-procedures  dfa-sm"></i>
-                                                {{ number_format($data['mainStats']['critical'], 0, '.', ',') }} critical
+                                                <i class="fas fa-procedures dfa-sm"></i>
+                                                <span class="text-info">{{ number_format($data['mainStats']['critical'], 0, '.', ',') }}</span> critical condition
+                                            </h6>
+                                            <h6>
+                                                <i class="fas fa-vial fa-sm"></i>
+                                                <span class="text-info">{{ number_format($data['mainStats']['tests'], 0, '.', ',') }}</span> tests conducted
+                                            </h6>
+                                            <h6>
+                                                <i class="fas fa-street-view fa-sm"></i>
+                                                <span class="text-info">{{ number_format($data['mainStats']['testsPerOneMillion'], 0, '.', ',') }}</span> tests per 1 million
                                             </h6>
                                         </div>
                                     </div>
