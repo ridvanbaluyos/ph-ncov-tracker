@@ -40,12 +40,12 @@
                                             <div class="h1 mb-0 font-weight-bold text-gray-800">
                                                 {{ number_format($data['stats']['world']['confirmed'], 0, '.', ',') }}
                                                 <small>
-                                                    <h6 class="text-info">(+{{ number_format($data['stats']['world']['todayCases'], 0, '.', ',') }})</h6>
+                                                    <h6 class="text-primary">(+{{ number_format($data['stats']['world']['todayCases'], 0, '.', ',') }})</h6>
                                                 </small>
                                                 <small>
                                                     <h6>
                                                         <i class="fas fa-street-view fa-sm"></i>
-                                                        {{ number_format($data['stats']['world']['casesPerOneMillion'], 0, '.', ',') }} cases per 1 million
+                                                        <span class="text-info">{{ number_format($data['stats']['world']['casesPerOneMillion'], 0, '.', ',') }}</span> cases per 1 million
                                                     </h6>
                                                 </small>
                                             </div>
@@ -69,7 +69,7 @@
                                                 {{ number_format($data['stats']['world']['recovered'], 0, '.', ',') }}
                                                     <h6>
                                                         <i class="fas fa-book-medical fa-sm"></i>
-                                                        {{ round($data['stats']['world']['recovered'] / $data['stats']['world']['confirmed'] , 4) * 100}}% recovery rate
+                                                        <span class="text-info">{{ round($data['stats']['world']['recovered'] / $data['stats']['world']['confirmed'] , 4) * 100}}%</span> recovery rate
                                                     </h6>
                                             </div>
                                         </div>
@@ -87,16 +87,22 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-lg font-weight-bold text-danger text-uppercase mb-1">Died</small></div>
+                                            <div class="text-lg font-weight-bold text-danger text-uppercase mb-1">Died</div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
                                                     <div class="h1 mb-0 mr-3 font-weight-bold text-gray-800">
                                                         {{ number_format($data['stats']['world']['deaths'], 0, '.', ',') }}
-                                                        <span class="text-info small">(+{{ number_format($data['stats']['world']['todayDeaths'], 0, '.', ',') }})</span>
+                                                        <small>
+                                                            <h6 class="text-danger">
+                                                                (+{{ number_format($data['stats']['world']['todayDeaths'], 0, '.', ',') }})
+                                                            </h6>
+                                                        </small>
+                                                        <small>
                                                             <h6>
                                                                 <i class="fas fa-book-dead fa-sm"></i>
-                                                                {{ round($data['stats']['world']['deaths'] / $data['stats']['world']['confirmed'], 4) * 100}}% mortality rate
+                                                                <span class="text-info">{{ round($data['stats']['world']['deaths'] / $data['stats']['world']['confirmed'], 4) * 100}}%</span> mortality rate
                                                             </h6>
+                                                        </small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -120,7 +126,7 @@
                                                 {{ number_format($data['stats']['world']['active'], 0, '.', ',') }}
                                                 <h6>
                                                     <i class="fas fa-procedures dfa-sm"></i>
-                                                    {{ number_format($data['stats']['world']['critical'], 0, '.', ',') }} critical
+                                                    <span class="text-info">{{ number_format($data['stats']['world']['critical'], 0, '.', ',') }}</span> critical condition
                                                 </h6>
                                             </div>
                                         </div>

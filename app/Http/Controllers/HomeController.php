@@ -12,6 +12,8 @@ use App\Repositories\Stats\CoronaStatsOnline\Stats as CoronaStats;
 use App\Repositories\Stats\StatsRepository;
 use App\Repositories\PatientsRepository;
 
+date_default_timezone_set('Asia/Manila');
+
 /**
  * Class HomeController
  * @package App\Http\Controllers

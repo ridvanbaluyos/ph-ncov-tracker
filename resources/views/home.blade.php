@@ -39,11 +39,17 @@
                                         <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">Confirmed</div>
                                         <div class="h1 mb-0 font-weight-bold text-gray-800">
                                             {{ number_format($data['mainStats']['confirmed'], 0, '.', ',') }}
-                                            <span class="text-info small">(+{{ number_format($data['mainStats']['todayCases'], 0, '.', ',') }})</span>
-                                            <h6>
-                                                <i class="fas fa-street-view fa-sm"></i>
-                                                <span class="text-info">{{ number_format($data['mainStats']['casesPerOneMillion'], 0, '.', ',') }}</span> cases per 1 million
-                                            </h6>
+                                            <small>
+                                                <h6>
+                                                    <span class="text-primary">(+{{ number_format($data['mainStats']['todayCases'], 0, '.', ',') }})</span>
+                                                </h6>
+                                            </small>
+                                            <small>
+                                                <h6>
+                                                    <i class="fas fa-street-view fa-sm"></i>
+                                                    <span class="text-info">{{ number_format($data['mainStats']['casesPerOneMillion'], 0, '.', ',') }}</span> cases per 1 million
+                                                </h6>
+                                            </small>
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -88,7 +94,11 @@
                                             <div class="col-auto">
                                                 <div class="h1 mb-0 mr-3 font-weight-bold text-gray-800">
                                                     {{ number_format($data['mainStats']['deaths'], 0, '.', ',') }}
-                                                    <span class="text-info small">(+{{ number_format($data['mainStats']['todayDeaths'], 0, '.', ',') }})</span>
+                                                    <small>
+                                                        <h6>
+                                                            <span class="text-danger">(+{{ number_format($data['mainStats']['todayDeaths'], 0, '.', ',') }})</span>
+                                                        </h6>
+                                                    </small>
                                                     <h6>
                                                         <i class="fas fa-book-dead fa-sm"></i>
                                                         <span class="text-info">{{ round($data['mainStats']['deaths'] / $data['mainStats']['confirmed'], 4) * 100}}%</span> mortality rate
